@@ -13,15 +13,14 @@ export const render = (
 	realNode: ElementAttachedNeedAttr,
 	newVNode: VirtualNodeType
 ) => {
-	if (!realNode.parentElement) {
+	if (!realNode.parentElement)
 		throw new Error("Error! realNode does not have parentNode.");
-	}
 
 	const vNode = createVNodeFromRealElement(realNode);
+	const oldVNode = realNode.vdom ? realNode.vdom : { ...vNode };
+
 	vNode.children = [newVNode];
 	newVNode = vNode;
-
-	const oldVNode = realNode.vdom ? realNode.vdom : { ...vNode };
 
 	renderNode(realNode.parentElement, realNode, oldVNode, newVNode);
 };
@@ -57,11 +56,11 @@ const renderNode = (
 	}
 
 	// mutate element
-	else {
+	else if (realNode) {
 		realNode = mutateElement(realNode, oldVNode, newVNode);
 	}
 
-	if (realNode !== null) {
+	if (realNode) {
 		newVNode.realNode = realNode;
 		realNode.vdom = newVNode;
 	}

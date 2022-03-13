@@ -24,7 +24,7 @@ export const createVNodeFromRealElement = (
 	const props: VirtualNodeType["props"] = {};
 	if (realElement.hasAttributes()) {
 		for (const i in realElement.attributes) {
-			const { name, value } = realElement.attributes[Number(i)];
+			const { name, value } = realElement.attributes[i];
 			props[name] = value;
 		}
 	}

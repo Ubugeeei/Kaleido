@@ -12,6 +12,7 @@ export const createRealNodeFromVNode = (
 	if (typeof VNode.name !== "string") return null;
 
 	let realNode: ElementAttachedNeedAttr | TextAttachedVDom;
+
 	if (VNode.nodeType === TEXT_NODE) {
 		realNode = document.createTextNode(VNode.name);
 		VNode.realNode = realNode;
