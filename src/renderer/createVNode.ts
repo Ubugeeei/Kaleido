@@ -3,7 +3,7 @@ import {
 	createTextVNode,
 	createVNode,
 } from "./createElement";
-import { VirtualNodeType } from "./vNode.interface";
+import { VirtualNodeType } from "../vNode.interface";
 
 export const createVNodeFromRealElement = (
 	realElement: HTMLElement
