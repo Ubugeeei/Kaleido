@@ -10,8 +10,11 @@ export const updateOnlyThisNode = (
 	realNode: VirtualNodeType["realNode"],
 	oldVNode: VirtualNodeType,
 	newVNode: VirtualNodeType
-): ExpandElement | void => {
-	if (!realNode) throw new Error("Error! realNode is null.");
+): ExpandElement | null => {
+	if (!realNode) {
+		console.error("Error! realNode is null.");
+		return null;
+	}
 
 	for (const propName in mergeProperties(
 		oldVNode.props,
@@ -27,7 +30,7 @@ export const updateOnlyThisNode = (
 			compareValue = oldVNode.props[propName];
 		}
 
-		if (compareValue === newVNode.props) return;
+		if (compareValue === newVNode.props) return null;
 
 		patchProperty(
 			realNode as ElementAttachedNeedAttr,
