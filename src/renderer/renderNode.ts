@@ -21,16 +21,15 @@ export const renderNode = (
 	}
 
 	// render element
-	else if (oldVNode === null || oldVNode.name !== newVNode.name) {
+	else if (!oldVNode || oldVNode.name !== newVNode.name) {
 		const newRealNode = createRealNodeFromVNode(newVNode);
-		if (newRealNode !== null) {
-			parentNode.insertBefore(newRealNode, realNode);
-		}
 
-		if (oldVNode !== null && oldVNode.realNode !== null) {
+		// prettier-ignore
+		if (newRealNode)
+			parentNode.insertBefore(newRealNode, realNode);
+
+		if (oldVNode && oldVNode.realNode)
 			parentNode.removeChild(oldVNode.realNode);
-		}
-		//  ...
 	}
 };
 
@@ -52,5 +51,6 @@ const renderTextNode = (
 	}
 
 	realNode.nodeValue = newVNode.name;
+
 	return realNode;
 };
