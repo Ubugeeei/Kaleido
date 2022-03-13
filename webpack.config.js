@@ -4,11 +4,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
 	mode: "development",
-	entry: "src/index.ts",
+	entry: `${__dirname}/src/index.ts`,
 	output: {
 		filename: "bundle.js",
 		path: `${outputPath}`,
 	},
+
 	module: {
 		rules: [
 			{
@@ -24,7 +25,7 @@ module.exports = {
 	},
 
 	devServer: {
-		contentBase: `${outputPath}/`, //エントリーポイントを指定
+		contentBase: `${outputPath}/`,
 		open: true,
 		hot: true,
 		watchContentBase: true,
