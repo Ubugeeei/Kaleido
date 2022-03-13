@@ -1,8 +1,5 @@
 import { h } from "../src/createElement";
-
-export interface Todo {
-	title: string;
-}
+import { Todo } from "./App";
 
 const TodoList = (props: { todos: Todo[] }) => {
 	return h(

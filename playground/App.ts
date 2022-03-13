@@ -7,7 +7,7 @@ interface HTMLElementEvent<T extends HTMLElement> extends Event {
 	target: T;
 }
 
-interface Todo {
+export interface Todo {
 	title: string;
 }
 
