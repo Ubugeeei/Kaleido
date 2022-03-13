@@ -4,6 +4,6 @@
 		"lib": ["DOM"],
 		"strict": true
 	},
-	"include": ["src/**/*", "playground/App.tsx"],
+	"include": ["src/**/*", "playground/App.ts", "playground/hooks/useState.ts"],
 	"exclude": ["node_modules", "dist"]
 }
