@@ -1,5 +1,5 @@
-import { h } from "../src/createElement";
-import { Todo } from "./App";
+import { h } from "../../src/createElement";
+import { Todo } from "../App";
 
 const TodoList = (props: { todos: Todo[] }) => {
 	return h(

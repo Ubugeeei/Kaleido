@@ -1,7 +1,7 @@
 import { h } from "../src/createElement";
 import { render } from "../src/render";
 import { useState } from "./hooks/useState";
-import TodoList from "./Todos";
+import TodoList from "./components/Todos";
 
 interface HTMLElementEvent<T extends HTMLElement> extends Event {
 	target: T;
