@@ -1,4 +1,4 @@
-import { KeyAttribute, VirtualNodeType } from "../vNode.interface";
+import { KeyAttribute, VirtualNodeType } from "./vNode.interface";
 
 export const TEXT_NODE = 3;
 
