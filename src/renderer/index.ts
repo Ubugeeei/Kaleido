@@ -1,4 +1,4 @@
-import { createVNodeFromRealElement } from "../createVNode";
+import { createVNodeFromRealElement } from "./createVNode";
 import {
 	ElementAttachedNeedAttr,
 	VirtualNodeType,
