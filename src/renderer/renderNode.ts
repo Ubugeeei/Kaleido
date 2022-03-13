@@ -28,14 +28,13 @@ const renderTextNode = (
 		);
 		return realNode;
 	}
-
-	if (typeof newVNode.name === "string") {
-		realNode.nodeValue = newVNode.name;
-		return realNode;
-	} else {
+	if (typeof newVNode.name !== "string") {
 		console.error(
-			"Error!rendering nodeType is TEXT_NODE, but newNode.name is not string."
+			"Error! rendering nodeType is TEXT_NODE, but newNode.name is not string."
 		);
 		return realNode;
 	}
+
+	realNode.nodeValue = newVNode.name;
+	return realNode;
 };
