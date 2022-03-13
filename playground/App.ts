@@ -1,44 +1,21 @@
 import { h } from "../src/createElement";
 import { render } from "../src/render";
 import { useState } from "./hooks/useState";
-import TodoList from "./components/Todos";
-
-interface HTMLElementEvent<T extends HTMLElement> extends Event {
-	target: T;
-}
-
-export interface Todo {
-	title: string;
-}
+import MyComponent from "./components/MyComponent";
 
 const App = () => {
-	const [todos, setTodos] = useState<Todo[]>([], "todos");
-	const [inputVal, setValue] = useState("default", "inputVal");
+	const [count, setCount] = useState(0, "count");
+
+	// component props
+	const [myList] = useState(
+		["item1", "item2", "item3", "item4", "item5"],
+		"myList"
+	);
 
 	return h("div", {}, [
-		h(
-			"input",
-			{
-				type: "text",
-				value: inputVal,
-				// prettier-ignore
-				oninput: (e: HTMLElementEvent<HTMLInputElement>) => setValue(e.target.value),
-				autofocus: true,
-			},
-			[]
-		),
-
-		h(
-			"button",
-			{
-				onclick: () => setTodos([...todos, { title: inputVal }]),
-			},
-			["submit"]
-		),
-
-		h("p", {}, [`input state: ${inputVal}`]),
-
-		TodoList({ todos }),
+		h("h1", {}, [`Count: ${count}`]),
+		h("button", { onclick: () => setCount(count + 1) }, ["+"]),
+		MyComponent({ myProps: myList }),
 	]);
 };
 
