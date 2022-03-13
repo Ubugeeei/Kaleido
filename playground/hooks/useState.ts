@@ -1,9 +1,6 @@
 import { render } from "../../src/render";
 import App from "../App";
-const RootState: { [key: string | symbol]: any } = {
-	// inputVal: { value: "", initialized: false },
-	// todos: { value: [], initialized: false },
-};
+const RootState: { [key: string | symbol]: any } = {};
 
 export const useState = <T>(
 	initialValue: T,
