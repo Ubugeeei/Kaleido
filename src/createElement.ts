@@ -1,6 +1,6 @@
 import { KeyAttribute, VirtualNodeType } from "./vNode.interface";
 
-const TEXT_NODE = 3;
+export const TEXT_NODE = 3;
 
 /**
  * create element function h
@@ -10,9 +10,8 @@ export const h = (
 	props: VirtualNodeType["props"],
 	children: (VirtualNodeType | string)[],
 	realNode?: VirtualNodeType["realNode"]
-) => {
+): VirtualNodeType => {
 	const VNodeChildren: VirtualNodeType[] = [];
-
 	children.forEach((it) => {
 		if (typeof it === "string") {
 			const textVNode = createTextVNode(it);
@@ -34,7 +33,7 @@ export const h = (
 	return vNode;
 };
 
-const createVNode = (
+export const createVNode = (
 	name: VirtualNodeType["name"],
 	props: VirtualNodeType["props"],
 	children: VirtualNodeType["children"],
@@ -50,7 +49,7 @@ const createVNode = (
 	key: key ? key : null,
 });
 
-const createTextVNode = (
+export const createTextVNode = (
 	name: string,
 	realNode?: VirtualNodeType["realNode"]
 ) => createVNode(name, {}, [], realNode, TEXT_NODE);
