@@ -22,7 +22,8 @@ const App = () => {
 	}, [count]);
 
 	return ReactDOM.createElement("div", {}, [
-		ReactDOM.createElement("h1", {}, [`Count: ${count}`]),
+		ReactDOM.createElement("h3", {}, ["Counter App"]),
+		ReactDOM.createElement("p", {}, [`Count: ${count}`]),
 		ReactDOM.createElement(
 			"button",
 			{ onclick: () => setCount(count + 1) },
