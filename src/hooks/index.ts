@@ -33,13 +33,33 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 			exec,
 		});
 	} else if (deps.length) {
-		rootComponentInstance.depsRenderingEffects.push({
-			exec,
-			deps,
-		});
+		const currentEffect =
+			rootComponentInstance.depsRenderingEffects[
+				rootComponentInstance.currentSetEffectIndex
+			];
+
+		if (!currentEffect) {
+			// なければ登録 (初回登録)
+			rootComponentInstance.depsRenderingEffects[
+				rootComponentInstance.currentSetEffectIndex
+			] = {
+				exec,
+				deps,
+				isNeedEffect: true,
+			};
+		} else {
+			// あれば依存値の新旧を比較し、差異があればisNeedEffectをtrueにしdepsを更新
+			currentEffect.deps.forEach((dep, i) => {
+				if (dep !== deps[i]) {
+					currentEffect.deps = deps;
+					currentEffect.isNeedEffect = true;
+				}
+			});
+		}
 	} else {
 		rootComponentInstance.mountingEffects.push({
 			exec,
 		});
 	}
+	rootComponentInstance.currentSetEffectIndex++;
 };
