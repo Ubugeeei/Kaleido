@@ -1,7 +1,8 @@
-import { h } from "../src/createElement";
-import { render } from "../src/render";
-import { useState } from "./hooks/useState";
+import ReactDOM from "../src/react-dom/index";
+import { useEffect, useState } from "../src/hooks/index";
 import MyComponent from "./components/MyComponent";
+
+const e = ReactDOM.createElement;
 
 const App = () => {
 	const [count, setCount] = useState(0, "count");
@@ -12,13 +13,25 @@ const App = () => {
 		"myList"
 	);
 
-	return h("div", {}, [
-		h("h1", {}, [`Count: ${count}`]),
-		h("button", { onclick: () => setCount(count + 1) }, ["+"]),
+	useEffect(() => {
+		console.log("effect!!");
+	});
+
+	useEffect(() => {
+		console.log("effect only mounted!!");
+
+		return () => {
+			console.log("effect only unmounted!!");
+		};
+	}, []);
+
+	return e("div", {}, [
+		e("h1", {}, [`Count: ${count}`]),
+		e("button", { onclick: () => setCount(count + 1) }, ["+"]),
 		MyComponent({ myProps: myList }),
 	]);
 };
 
-render(App(), document.getElementById("root-element"));
+ReactDOM.render(App, document.getElementById("root-element"));
 
 export default App;

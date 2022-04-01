@@ -1,11 +1,11 @@
-import { h } from "../../src/createElement";
+import ReactDOM from "../../src/react-dom";
 
 const MyComponent = (props: { myProps: string[] }) => {
-	return h(
+	return ReactDOM.createElement(
 		"ul",
 		{},
 		props.myProps.map((it) =>
-			h(
+			ReactDOM.createElement(
 				"li",
 				{
 					class: "todo-item",
