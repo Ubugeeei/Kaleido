@@ -1,5 +1,7 @@
 # Usage
 
+edit on playground App.ts or components!
+
 ```ts
 // playground/App.ts
 import ReactDOM from "../src/react-dom/index";
@@ -54,5 +56,3 @@ ReactDOM.render(App, document.getElementById("root-element"));
 $ yarn
 $ yarn start
 ```
-
-edit on playground App.ts or components!
