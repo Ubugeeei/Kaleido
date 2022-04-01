@@ -45,7 +45,6 @@ export class Component {
 	unMount() {
 		this.realNode = null;
 
-		// レンダリングするということはunMountされる
 		this.unMountingEffects.forEach((it) => {
 			it();
 		});
@@ -57,15 +56,13 @@ export class Component {
 
 		_this.renderingEffects = [];
 		render(_this.vNodeRender(), _this.realNode);
+
 		// レンダリングするときにuseEffectで登録された関数を実行
 		_this.unMountingEffects = [];
 		_this.renderingEffects.forEach((it) => {
 			const unMountFunc = it.exec();
 			unMountFunc && _this.unMountingEffects.push(unMountFunc);
 		});
-
-		// newTmpを使ってDOM操作(差分検知、仮想DOM更新、実際のDOMを更新して完了)
-		// do something
 	}
 }
 
