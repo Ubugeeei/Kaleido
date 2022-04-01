@@ -31,6 +31,7 @@ const App = () => {
 	useEffect(() => {
 		console.log("effect only updated count!!");
 	}, [count]);
+
 	useEffect(() => {
 		console.log("effect only updated myList!!");
 	}, [myList]);
