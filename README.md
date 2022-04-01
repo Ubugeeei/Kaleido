@@ -32,6 +32,14 @@ const App = () => {
 		};
 	}, []);
 
+	useEffect(() => {
+		console.log("effect only updated count!!");
+	}, [count]);
+
+	useEffect(() => {
+		console.log("effect only updated myList!!");
+	}, [myList]);
+
 	return e("div", {}, [
 		e("h1", {}, [`Count: ${count}`]),
 		e("button", { onclick: () => setCount(count + 1) }, ["+"]),
@@ -40,7 +48,6 @@ const App = () => {
 };
 
 ReactDOM.render(App, document.getElementById("root-element"));
-
 ```
 
 ```sh
