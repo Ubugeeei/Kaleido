@@ -1,20 +1,9 @@
 import ReactDOM from "../src/react-dom/index";
 import { useEffect, useState } from "../src/hooks/index";
-import MyComponent from "./components/MyComponent";
-
-const e = ReactDOM.createElement;
+import TodoApp from "./components/todo/TodoApp";
 
 const App = () => {
 	const [count, setCount] = useState(0);
-
-	// component props
-	const [myList] = useState([
-		"item1",
-		"item2",
-		"item3",
-		"item4",
-		"item5",
-	]);
 
 	useEffect(() => {
 		console.log("effect!!");
@@ -32,14 +21,19 @@ const App = () => {
 		console.log("effect only updated count!!");
 	}, [count]);
 
-	useEffect(() => {
-		console.log("effect only updated myList!!");
-	}, [myList]);
-
 	return ReactDOM.createElement("div", {}, [
 		ReactDOM.createElement("h1", {}, [`Count: ${count}`]),
-		ReactDOM.createElement("button", { onclick: () => setCount(count + 1) }, ["+"]),
-		MyComponent({ myProps: myList }),
+		ReactDOM.createElement(
+			"button",
+			{ onclick: () => setCount(count + 1) },
+			["+"]
+		),
+
+		ReactDOM.createElement("hr", {}, []),
+
+		TodoApp(),
+
+		ReactDOM.createElement("hr", {}, []),
 	]);
 };
 
