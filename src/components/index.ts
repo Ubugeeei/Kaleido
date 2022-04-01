@@ -4,7 +4,7 @@ import {
 } from "../react-dom/interface";
 import { render } from "../react-dom/render";
 
-export interface Effect {
+interface Effect {
 	exec: Function;
 	deps?: any[];
 }
@@ -12,17 +12,19 @@ export interface Effect {
 export class Component {
 	vNodeRender!: () => VirtualNodeType;
 	realNode?: ElementAttachedNeedAttr | null;
-	state: { [key: string | symbol]: any };
+	states: any[];
 	renderingEffects: Effect[];
 	depsRenderingEffects: Effect[];
 	mountingEffects: Effect[];
 	unMountingEffects: Function[];
+	currentSetStateIndex: number;
 	constructor() {
-		this.state = {};
+		this.states = [];
 		this.renderingEffects = [];
 		this.depsRenderingEffects = [];
 		this.mountingEffects = [];
 		this.unMountingEffects = [];
+		this.currentSetStateIndex = 0;
 	}
 
 	mount(
@@ -53,6 +55,7 @@ export class Component {
 	render() {
 		const _this = this;
 		if (!_this.realNode) return;
+		this.currentSetStateIndex = 0;
 
 		_this.renderingEffects = [];
 		render(_this.vNodeRender(), _this.realNode);

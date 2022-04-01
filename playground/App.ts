@@ -5,13 +5,16 @@ import MyComponent from "./components/MyComponent";
 const e = ReactDOM.createElement;
 
 const App = () => {
-	const [count, setCount] = useState(0, "count");
+	const [count, setCount] = useState(0);
 
 	// component props
-	const [myList] = useState(
-		["item1", "item2", "item3", "item4", "item5"],
-		"myList"
-	);
+	const [myList] = useState([
+		"item1",
+		"item2",
+		"item3",
+		"item4",
+		"item5",
+	]);
 
 	useEffect(() => {
 		console.log("effect!!");

@@ -2,27 +2,29 @@ import { render } from "../react-dom/render";
 import { rootComponentInstance } from "../react-root/index";
 
 export const useState = <T>(
-	initialValue: T,
-	stateKey: string
+	initialValue: T
 ): [T, (arg: T) => void] => {
-	if (!rootComponentInstance.state[stateKey]) {
-		rootComponentInstance.state[stateKey] = {
+	const i = rootComponentInstance.currentSetStateIndex;
+	if (!rootComponentInstance.states[i]) {
+		rootComponentInstance.states.push({
 			value: initialValue,
 			initialized: true,
-		};
+		});
 	}
 
-	if (!rootComponentInstance.state[stateKey].initialized) {
-		rootComponentInstance.state[stateKey].value = initialValue;
-		rootComponentInstance.state[stateKey].initialized = true;
+	if (!rootComponentInstance.states[i].initialized) {
+		rootComponentInstance.states[i].value = initialValue;
+		rootComponentInstance.states[i].initialized = true;
 	}
 
 	const setState = (newVal: T): void => {
-		rootComponentInstance.state[stateKey].value = newVal;
+		rootComponentInstance.states[i].value = newVal;
 		rootComponentInstance.render();
 	};
 
-	return [rootComponentInstance.state[stateKey].value as T, setState];
+	rootComponentInstance.currentSetStateIndex++;
+
+	return [rootComponentInstance.states[i].value as T, setState];
 };
 
 export const useEffect = (exec: Function, deps?: any[]) => {
