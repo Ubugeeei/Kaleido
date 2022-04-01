@@ -1,11 +1,11 @@
-import { KeyAttribute, VirtualNodeType } from "./vNode.interface"
+import { KeyAttribute, VirtualNodeType } from "./interface"
 
 export const TEXT_NODE = 3;
 
 /**
  * create element function h
  */
-export const h = (
+export const createElement = (
 	name: VirtualNodeType["name"],
 	props: VirtualNodeType["props"],
 	children: (VirtualNodeType | string)[],

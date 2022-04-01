@@ -7,13 +7,12 @@ import {
 	ExpandElement,
 	KeyAttribute,
 	VirtualNodeType,
-} from "./vNode.interface";
+} from "./interface";
 
 export const render = (
 	newVNode: VirtualNodeType,
-	realNode?: ElementAttachedNeedAttr | null
+	realNode: ElementAttachedNeedAttr
 ) => {
-	if (!realNode) throw new Error("Error! realNode is null");
 	if (!realNode.parentElement)
 		throw new Error("Error! realNode does not have parentNode.");
 

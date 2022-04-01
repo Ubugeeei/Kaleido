@@ -4,7 +4,7 @@ import {
 	DOMAttributes,
 	VirtualNodeType,
 	ExpandElement,
-} from "./vNode.interface";
+} from "./interface";
 
 export const updateOnlyThisNode = (
 	realNode: VirtualNodeType["realNode"],

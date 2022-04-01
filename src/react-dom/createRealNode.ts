@@ -2,7 +2,7 @@ import {
 	VirtualNodeType,
 	ElementAttachedNeedAttr,
 	TextAttachedVDom,
-} from "./vNode.interface";
+} from "./interface";
 import { TEXT_NODE } from "./createElement";
 import { patchProperty } from "./patch";
 
