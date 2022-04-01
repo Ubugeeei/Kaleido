@@ -33,5 +33,3 @@ const App = () => {
 };
 
 ReactDOM.render(App, document.getElementById("root-element"));
-
-export default App;
