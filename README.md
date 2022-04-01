@@ -8,8 +8,6 @@ import ReactDOM from "../src/react-dom/index";
 import { useEffect, useState } from "../src/hooks/index";
 import MyComponent from "./components/MyComponent";
 
-const e = ReactDOM.createElement;
-
 const App = () => {
 	const [count, setCount] = useState(0);
 
@@ -42,9 +40,9 @@ const App = () => {
 		console.log("effect only updated myList!!");
 	}, [myList]);
 
-	return e("div", {}, [
-		e("h1", {}, [`Count: ${count}`]),
-		e("button", { onclick: () => setCount(count + 1) }, ["+"]),
+	return ReactDOM.createElement("div", {}, [
+		ReactDOM.createElement("h1", {}, [`Count: ${count}`]),
+		ReactDOM.createElement("button", { onclick: () => setCount(count + 1) }, ["+"]),
 		MyComponent({ myProps: myList }),
 	]);
 };

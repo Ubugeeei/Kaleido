@@ -36,9 +36,9 @@ const App = () => {
 		console.log("effect only updated myList!!");
 	}, [myList]);
 
-	return e("div", {}, [
-		e("h1", {}, [`Count: ${count}`]),
-		e("button", { onclick: () => setCount(count + 1) }, ["+"]),
+	return ReactDOM.createElement("div", {}, [
+		ReactDOM.createElement("h1", {}, [`Count: ${count}`]),
+		ReactDOM.createElement("button", { onclick: () => setCount(count + 1) }, ["+"]),
 		MyComponent({ myProps: myList }),
 	]);
 };
