@@ -25,8 +25,10 @@ export const Route = (option: RouteOption): RouteOption => option;
 export const useRouter = () => ({
 	push: (option: RouterOption) => {
 		if (typeof option === "string") {
+			if (option === location.pathname) return;
 			history.pushState(null, ",", option);
 		} else {
+			if (option.path === location.pathname) return;
 			// TODO: hash, query pram
 			history.pushState(null, ",", option.path);
 		}
