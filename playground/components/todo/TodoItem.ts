@@ -1,4 +1,6 @@
 import ReactDOM from "../../../src/react-dom/index";
+import { ReactStyleSheet } from "../../../src/style/index";
+import { THEME, utilStyles } from "../../style/util";
 import { Todo } from "./TodoApp";
 
 const TodoItem = (props: {
@@ -10,7 +12,13 @@ const TodoItem = (props: {
 
 	return ReactDOM.createElement(
 		"li",
-		{ style: "list-style: none;" },
+		{
+			style:
+				"list-style: none;" +
+				utilStyles.flex +
+				(todo.completed ? utilStyles.op025 : utilStyles.op1) +
+				(todo.completed ? utilStyles.lineThrough : ""),
+		},
 		[
 			ReactDOM.createElement(
 				"input",
@@ -20,6 +28,9 @@ const TodoItem = (props: {
 					onInput: () => {
 						onCheck(todo.id);
 					},
+					style: todo.completed
+						? styles.checkedInput
+						: styles.uncheckedInput,
 				},
 				[]
 			),
@@ -38,5 +49,16 @@ const TodoItem = (props: {
 		]
 	);
 };
+
+const styles = ReactStyleSheet.create({
+	checkedInput: {
+		height: "20px",
+		width: "20px",
+	},
+	uncheckedInput: {
+		height: "20px",
+		width: "20px",
+	},
+});
 
 export default TodoItem;

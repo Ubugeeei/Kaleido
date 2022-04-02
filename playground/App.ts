@@ -2,6 +2,7 @@ import ReactDOM from "../src/react-dom/index";
 import { useEffect, useMemo, useState } from "../src/hooks/index";
 import { ReactStyleSheet } from "../src/style/index";
 import TodoApp from "./components/todo/TodoApp";
+import { THEME, utilStyles } from "./style/util";
 
 const App = () => {
 	const [count, setCount] = useState(0);
@@ -33,12 +34,12 @@ const App = () => {
 		{ style: styles.appContainer },
 		[
 			ReactDOM.createElement("h3", {}, ["Counter App"]),
-			ReactDOM.createElement("div", { style: styles.flex }, [
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
 				ReactDOM.createElement(
 					"button",
 					{
 						onclick: () => setCount(count + 1),
-						style: styles.incrementButton + styles.mr4,
+						style: styles.incrementButton + utilStyles.mr4,
 					},
 					["+"]
 				),
@@ -50,12 +51,15 @@ const App = () => {
 				]),
 			]),
 
-			ReactDOM.createElement("div", { style: styles.flex }, [
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
 				ReactDOM.createElement(
 					"button",
 					{
 						onclick: () => setCount2(count2 + 1),
-						style: styles.mr4 + styles.incrementButton + styles.mr4,
+						style:
+							utilStyles.mr4 +
+							styles.incrementButton +
+							utilStyles.mr4,
 					},
 					["+"]
 				),
@@ -67,11 +71,11 @@ const App = () => {
 				]),
 			]),
 
-			ReactDOM.createElement("div", { style: styles.flex }, [
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
 				ReactDOM.createElement(
 					"button",
 					{
-						style: styles.incrementButtonDisabled + styles.mr4,
+						style: styles.incrementButtonDisabled + utilStyles.mr4,
 						disabled: true,
 					},
 					["+"]
@@ -86,7 +90,7 @@ const App = () => {
 
 			ReactDOM.createElement(
 				"div",
-				{ style: styles.flex + styles.justifyEnd },
+				{ style: utilStyles.flex + utilStyles.justifyEnd },
 				[
 					ReactDOM.createElement(
 						"button",
@@ -104,11 +108,6 @@ const App = () => {
 		]
 	);
 };
-
-export const THEME = {
-	primary: "#66f",
-	secondary: "#fa0",
-} as const;
 
 const styles = ReactStyleSheet.create({
 	appContainer: {
@@ -148,17 +147,6 @@ const styles = ReactStyleSheet.create({
 	},
 	label: {
 		"font-size": ".8rem",
-	},
-	// utils
-	flex: {
-		display: "flex",
-		"align-items": "center",
-	},
-	justifyEnd: {
-		"justify-content": "flex-end",
-	},
-	mr4: {
-		"margin-right": "1rem",
 	},
 });
 

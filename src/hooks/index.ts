@@ -69,7 +69,6 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 
 	const memo: MemorizedStates | undefined =
 		rootComponentInstance.memorizedStates[i];
-	console.log(memo);
 
 	// initial
 	if (!memo) {
