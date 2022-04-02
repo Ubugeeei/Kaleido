@@ -1,7 +1,7 @@
 import ReactDOM from "../../../src/react-dom/index";
 import { ReactStyleSheet } from "../../../src/style/index";
 import { THEME, utilStyles } from "../../style/util";
-import { Todo } from "./TodoApp";
+import { Todo } from "../../pages/Todo";
 
 const TodoItem = (props: {
 	todo: Todo;

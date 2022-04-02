@@ -29,6 +29,7 @@ module.exports = {
 		open: true,
 		hot: true,
 		watchContentBase: true,
+		historyApiFallback: true,
 	},
 
 	plugins: [

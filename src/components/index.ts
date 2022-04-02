@@ -30,6 +30,7 @@ export class Component {
 	currentSetStateIndex: number;
 	currentSetEffectIndex: number;
 	currentSetMemoIndex: number;
+
 	constructor() {
 		this.states = [];
 		this.memorizedStates = [];
@@ -89,6 +90,18 @@ export class Component {
 			const unMountFunc = it.exec();
 			unMountFunc && _this.unMountingEffects.push(unMountFunc);
 		});
+	}
+
+	cleanUp() {
+		this.states = [];
+		this.memorizedStates = [];
+		this.renderingEffects = [];
+		this.depsRenderingEffects = [];
+		this.mountingEffects = [];
+		this.unMountingEffects = [];
+		this.currentSetStateIndex = 0;
+		this.currentSetEffectIndex = 0;
+		this.currentSetMemoIndex = 0;
 	}
 }
 

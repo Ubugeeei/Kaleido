@@ -1,8 +1,8 @@
-import { useEffect, useState } from "../../../src/hooks/index";
-import ReactDOM from "../../../src/react-dom/index";
-import { ReactStyleSheet } from "../../../src/style/index";
-import { THEME } from "../../style/util";
-import TodoItem from "./TodoItem";
+import { useEffect, useState } from "../../src/hooks/index";
+import ReactDOM from "../../src/react-dom/index";
+import { ReactStyleSheet } from "../../src/style/index";
+import { THEME } from "../style/util";
+import TodoItem from "../components/todo/TodoItem";
 
 export interface Todo {
 	id: number;

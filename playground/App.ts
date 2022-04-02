@@ -1,119 +1,66 @@
 import ReactDOM from "../src/react-dom/index";
-import { useEffect, useMemo, useState } from "../src/hooks/index";
+import ReactRouter, { useRouter } from "../src/router/index";
 import { ReactStyleSheet } from "../src/style/index";
-import TodoApp from "./components/todo/TodoApp";
+import { useEffect } from "../src/hooks/index";
+
+import Home from "./pages/index";
+import Counter from "./pages/counter";
+import Todo from "./pages/todo";
 import { THEME, utilStyles } from "./style/util";
 
 const App = () => {
-	const [count, setCount] = useState(0);
-	const [count2, setCount2] = useState(0);
-
-	const count2Double = useMemo(() => {
-		console.debug("useMemo: count2Double calculated");
-		return count2 * 2;
-	}, [count2]);
-
-	const resetCounts = () => {
-		setCount(0);
-		setCount2(0);
-	};
+	const router = useRouter();
 
 	useEffect(() => {
-		console.debug("useEffect: Effect only mounted");
+		console.log("App mounted");
 	}, []);
 
-	useEffect(() => {
-		console.debug("useEffect: Effect only updated count");
-	}, [count]);
-
-	/**
-	 * render
-	 */
 	return ReactDOM.createElement(
 		"div",
 		{ style: styles.appContainer },
 		[
-			ReactDOM.createElement("h3", {}, ["Counter App"]),
-			ReactDOM.createElement("div", { style: utilStyles.flex }, [
-				ReactDOM.createElement(
-					"button",
-					{
-						onclick: () => setCount(count + 1),
-						style: styles.incrementButton + utilStyles.mr4,
-					},
-					["+"]
-				),
-				ReactDOM.createElement("p", {}, [
-					ReactDOM.createElement("span", { style: styles.label }, [
-						"count: ",
-					]),
-					ReactDOM.createElement("span", {}, [`${count}`]),
-				]),
-			]),
-
-			ReactDOM.createElement("div", { style: utilStyles.flex }, [
-				ReactDOM.createElement(
-					"button",
-					{
-						onclick: () => setCount2(count2 + 1),
-						style:
-							utilStyles.mr4 +
-							styles.incrementButton +
-							utilStyles.mr4,
-					},
-					["+"]
-				),
-				ReactDOM.createElement("p", {}, [
-					ReactDOM.createElement("span", { style: styles.label }, [
-						"count2: ",
-					]),
-					ReactDOM.createElement("span", {}, [`${count2}`]),
-				]),
-			]),
-
-			ReactDOM.createElement("div", { style: utilStyles.flex }, [
-				ReactDOM.createElement(
-					"button",
-					{
-						style: styles.incrementButtonDisabled + utilStyles.mr4,
-						disabled: true,
-					},
-					["+"]
-				),
-				ReactDOM.createElement("p", {}, [
-					ReactDOM.createElement("span", { style: styles.label }, [
-						"double: ",
-					]),
-					ReactDOM.createElement("span", {}, [`${count2Double}`]),
-				]),
-			]),
-
 			ReactDOM.createElement(
-				"div",
-				{ style: utilStyles.flex + utilStyles.justifyEnd },
+				"nav",
+				{ style: utilStyles.flex + styles.nav },
 				[
 					ReactDOM.createElement(
-						"button",
-						{ onClick: resetCounts, style: styles.resetCountButton },
-						["reset counts"]
+						"div",
+						{
+							onClick: () => router.push("/"),
+							style: utilStyles.mr3,
+						},
+						["home"]
+					),
+					ReactDOM.createElement(
+						"div",
+						{
+							onClick: () => router.push("/counter"),
+							style: utilStyles.mr3,
+						},
+						["counter"]
+					),
+					ReactDOM.createElement(
+						"div",
+						{
+							onClick: () => router.push("/todo"),
+							style: utilStyles.mr3,
+						},
+						["todo"]
 					),
 				]
 			),
 
-			ReactDOM.createElement("hr", {}, []),
-
-			TodoApp(),
-
-			ReactDOM.createElement("hr", {}, []),
+			ReactRouter.Router({ style: utilStyles.pa4 }, [
+				ReactRouter.Route({ path: "/", component: Home }),
+				ReactRouter.Route({ path: "/counter", component: Counter }),
+				ReactRouter.Route({ path: "/todo", component: Todo }),
+			]),
 		]
 	);
 };
 
 const styles = ReactStyleSheet.create({
 	appContainer: {
-		"max-width": "600px",
-		margin: "8rem auto",
-		padding: "1rem",
 		height: "100%",
 		"min-height": "600px",
 		background: "#fafafa",
@@ -121,32 +68,14 @@ const styles = ReactStyleSheet.create({
 		border: "2px solid #ccc",
 		"border-radius": ".5rem",
 	},
-	incrementButton: {
-		height: "20px",
-		width: "20px",
-		border: "none",
+	nav: {
+		display: "flex",
+		padding: "1rem",
 		background: THEME.primary,
 		color: "#fff",
-		"border-radius": ".25rem",
-	},
-	incrementButtonDisabled: {
-		height: "20px",
-		width: "20px",
-		border: "none",
-		background: "#ccc",
-		color: "#fff",
-		"border-radius": ".25rem",
-	},
-	resetCountButton: {
-		padding: ".5rem",
-		border: "none",
-		background: THEME.secondary,
-		color: "#fff",
-		"font-weight": "bold",
-		"border-radius": ".25rem",
-	},
-	label: {
-		"font-size": ".8rem",
+		"font-size": "1.2rem",
+		"text-decoration": "underline",
+		cursor: "pointer",
 	},
 });
 
