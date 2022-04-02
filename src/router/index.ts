@@ -32,6 +32,7 @@ export const useRouter = () => ({
 		}
 		rootComponentInstance.cleanUp();
 		rootComponentInstance.render();
+		rootComponentInstance.effectInitialRender();
 	},
 
 	replace: (option: RouterOption) => {
@@ -42,12 +43,14 @@ export const useRouter = () => ({
 		}
 		rootComponentInstance.cleanUp();
 		rootComponentInstance.render();
+		rootComponentInstance.effectInitialRender();
 	},
 
 	go: (n: number) => {
 		history.go(n);
 		rootComponentInstance.cleanUp();
 		rootComponentInstance.render();
+		rootComponentInstance.effectInitialRender();
 	},
 
 	back: () => {

@@ -55,9 +55,7 @@ export class Component {
 		this.realNode = realNode;
 		this.vNodeRender();
 
-		this.mountingEffects.forEach((it) => {
-			it.exec();
-		});
+		this.effectInitialRender();
 	}
 
 	unMount() {
@@ -89,6 +87,12 @@ export class Component {
 		_this.renderingEffects.forEach((it) => {
 			const unMountFunc = it.exec();
 			unMountFunc && _this.unMountingEffects.push(unMountFunc);
+		});
+	}
+
+	effectInitialRender() {
+		this.mountingEffects.forEach((it) => {
+			it.exec();
 		});
 	}
 
