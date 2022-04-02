@@ -1,4 +1,4 @@
-import { render } from "../react-dom/render";
+import { MemorizedStates } from "../components/index";
 import { rootComponentInstance } from "../react-root/index";
 
 export const useState = <T>(
@@ -62,4 +62,36 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 		});
 	}
 	rootComponentInstance.currentSetEffectIndex++;
+};
+
+export const useMemo = <T>(getter: () => T, deps: any[]): T => {
+	const i = rootComponentInstance.currentSetMemoIndex;
+
+	const memo: MemorizedStates | undefined =
+		rootComponentInstance.memorizedStates[i];
+
+	// initial
+	if (!memo) {
+		const value = getter();
+		rootComponentInstance.memorizedStates[i] = {
+			value,
+			deps,
+		};
+		return value;
+	}
+
+	// updated
+	for (const i in deps) {
+		const _i = Number(i);
+		if (isNaN(_i)) continue;
+		if (deps[_i] !== memo.deps[_i]) {
+			memo.deps = deps;
+			return getter();
+		}
+	}
+
+	rootComponentInstance.currentSetMemoIndex++;
+
+	// use memo
+	return memo.value;
 };

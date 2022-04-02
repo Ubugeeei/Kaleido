@@ -13,24 +13,33 @@ interface DepsEffect extends Effect {
 	isNeedEffect?: boolean;
 }
 
+export interface MemorizedStates {
+	value: any;
+	deps: any[];
+}
+
 export class Component {
 	vNodeRender!: () => VirtualNodeType;
 	realNode?: ElementAttachedNeedAttr | null;
 	states: any[];
+	memorizedStates: MemorizedStates[];
 	renderingEffects: Effect[];
 	depsRenderingEffects: DepsEffect[];
 	mountingEffects: Effect[];
 	unMountingEffects: Function[];
 	currentSetStateIndex: number;
 	currentSetEffectIndex: number;
+	currentSetMemoIndex: number;
 	constructor() {
 		this.states = [];
+		this.memorizedStates = [];
 		this.renderingEffects = [];
 		this.depsRenderingEffects = [];
 		this.mountingEffects = [];
 		this.unMountingEffects = [];
 		this.currentSetStateIndex = 0;
 		this.currentSetEffectIndex = 0;
+		this.currentSetMemoIndex = 0;
 	}
 
 	mount(
@@ -63,6 +72,7 @@ export class Component {
 		if (!_this.realNode) return;
 		this.currentSetStateIndex = 0;
 		this.currentSetEffectIndex = 0;
+		this.currentSetMemoIndex = 0;
 
 		_this.renderingEffects = [];
 		render(_this.vNodeRender(), _this.realNode);
