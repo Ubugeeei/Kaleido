@@ -25,7 +25,7 @@ const Counter = () => {
 		console.debug("useEffect: Effect only updated count");
 	}, [count]);
 
-	return ReactDOM.createElement("div", {}, [
+	return ReactDOM.createElement("div", { key: "counter-app" }, [
 		ReactDOM.createElement("h3", {}, ["Counter App"]),
 		ReactDOM.createElement("div", { style: utilStyles.flex }, [
 			ReactDOM.createElement(

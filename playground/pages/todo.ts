@@ -57,53 +57,58 @@ const TodoApp = () => {
 	useEffect(() => {
 		const lsTodo = localStorage.getItem("todos");
 		lsTodo && setTodos(JSON.parse(lsTodo));
+		console.log("init");
 	}, []);
 
-	return ReactDOM.createElement("div", { id: "todo-app" }, [
-		ReactDOM.createElement("h3", {}, ["Todo App"]),
+	return ReactDOM.createElement(
+		"div",
+		{ id: "todo-app", key: "todo-app" },
+		[
+			ReactDOM.createElement("h3", {}, ["Todo App"]),
 
-		ReactDOM.createElement("div", {}, [
-			ReactDOM.createElement(
-				"input",
-				{
-					value: title,
-					onInput: (e: { target: { value: string } }) => {
-						setTitle(e.target.value);
+			ReactDOM.createElement("div", {}, [
+				ReactDOM.createElement(
+					"input",
+					{
+						value: title,
+						onInput: (e: { target: { value: string } }) => {
+							setTitle(e.target.value);
+						},
+						style: "margin-right: 15px;",
 					},
-					style: "margin-right: 15px;",
-				},
-				[]
-			),
-			ReactDOM.createElement(
-				"button",
-				{
-					onClick: () => {
-						addTodo();
+					[]
+				),
+				ReactDOM.createElement(
+					"button",
+					{
+						onClick: () => {
+							addTodo();
+						},
+						style: styles.addTodoButton,
 					},
-					style: styles.addTodoButton,
-				},
-				["Add"]
-			),
-		]),
+					["Add"]
+				),
+			]),
 
-		ReactDOM.createElement(
-			"ul",
-			{},
-			todos.map((todo) =>
-				ReactDOM.createElement("div", { key: `${todo.id}` }, [
-					TodoItem({
-						todo,
-						onCheck: () => {
-							toggleTodoStatus(todo.id);
-						},
-						onClickDelete: () => {
-							deleteTodo(todo.id);
-						},
-					}),
-				])
-			)
-		),
-	]);
+			ReactDOM.createElement(
+				"ul",
+				{},
+				todos.map((todo) =>
+					ReactDOM.createElement("div", { key: `${todo.id}` }, [
+						TodoItem({
+							todo,
+							onCheck: () => {
+								toggleTodoStatus(todo.id);
+							},
+							onClickDelete: () => {
+								deleteTodo(todo.id);
+							},
+						}),
+					])
+				)
+			),
+		]
+	);
 };
 
 const styles = ReactStyleSheet.create({

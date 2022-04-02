@@ -1,7 +1,7 @@
 import ReactDOM from "../../src/react-dom/index";
 
 const Home = () =>
-	ReactDOM.createElement("div", {}, [
+	ReactDOM.createElement("div", { key: "home" }, [
 		ReactDOM.createElement("h3", {}, ["Hello React Scratch!"]),
 	]);
 
