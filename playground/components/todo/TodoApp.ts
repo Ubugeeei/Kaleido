@@ -1,5 +1,7 @@
-import { useState } from "../../../src/hooks/index";
+import { useEffect, useState } from "../../../src/hooks/index";
 import ReactDOM from "../../../src/react-dom/index";
+import { ReactStyleSheet } from "../../../src/style/index";
+import { THEME } from "../../style/util";
 import TodoItem from "./TodoItem";
 
 export interface Todo {
@@ -14,16 +16,18 @@ const TodoApp = () => {
 	const [todoId, setTodoId] = useState(0);
 
 	const addTodo = () => {
-		setTodoId(todoId + 1);
-		setTodos([
+		const newTodoId = todoId + 1;
+		const newTodos = [
 			...todos,
 			{
-				id: todoId,
+				id: newTodoId,
 				title,
 				completed: false,
 			},
-		]);
-
+		];
+		localStorage.setItem("todos", JSON.stringify(newTodos));
+		setTodoId(newTodoId);
+		setTodos(newTodos);
 		setTitle("");
 	};
 
@@ -42,8 +46,18 @@ const TodoApp = () => {
 	};
 
 	const deleteTodo = (id: number) => {
-		setTodos(todos.filter((todo) => todo.id !== id));
+		const newTodos = todos.filter((todo) => todo.id !== id);
+		localStorage.setItem("todos", JSON.stringify(newTodos));
+		setTodos(newTodos);
 	};
+
+	/**
+	 * init
+	 */
+	useEffect(() => {
+		const lsTodo = localStorage.getItem("todos");
+		lsTodo && setTodos(JSON.parse(lsTodo));
+	}, []);
 
 	return ReactDOM.createElement("div", { id: "todo-app" }, [
 		ReactDOM.createElement("h3", {}, ["Todo App"]),
@@ -66,6 +80,7 @@ const TodoApp = () => {
 					onClick: () => {
 						addTodo();
 					},
+					style: styles.addTodoButton,
 				},
 				["Add"]
 			),
@@ -75,18 +90,30 @@ const TodoApp = () => {
 			"ul",
 			{},
 			todos.map((todo) =>
-				TodoItem({
-					todo,
-					onCheck: () => {
-						toggleTodoStatus(todo.id);
-					},
-					onClickDelete: () => {
-						deleteTodo(todo.id);
-					},
-				})
+				ReactDOM.createElement("div", { key: `${todo.id}` }, [
+					TodoItem({
+						todo,
+						onCheck: () => {
+							toggleTodoStatus(todo.id);
+						},
+						onClickDelete: () => {
+							deleteTodo(todo.id);
+						},
+					}),
+				])
 			)
 		),
 	]);
 };
 
+const styles = ReactStyleSheet.create({
+	addTodoButton: {
+		padding: ".5rem",
+		border: "none",
+		background: THEME.secondary,
+		color: "#fff",
+		"font-weight": "bold",
+		"border-radius": ".25rem",
+	},
+});
 export default TodoApp;
