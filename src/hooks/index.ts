@@ -69,6 +69,7 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 
 	const memo: MemorizedStates | undefined =
 		rootComponentInstance.memorizedStates[i];
+	console.log(memo);
 
 	// initial
 	if (!memo) {
@@ -86,7 +87,9 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 		if (isNaN(_i)) continue;
 		if (deps[_i] !== memo.deps[_i]) {
 			memo.deps = deps;
-			return getter();
+			const newValue = getter();
+			memo.value = newValue;
+			return newValue;
 		}
 	}
 
