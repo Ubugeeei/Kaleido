@@ -1,11 +1,13 @@
 import { useEffect, useState } from "../../src/hooks/index";
 import ReactDOM from "../../src/react-dom/index";
 import { ReactStyleSheet } from "../../src/style/index";
-import { THEME } from "../style/util";
+
+import { THEME, utilStyles } from "../style/util";
+import { getUniqueKey } from "../../src/helper/index";
 import TodoItem from "../components/todo/TodoItem";
 
 export interface Todo {
-	id: number;
+	id: string;
 	title: string;
 	completed: boolean;
 }
@@ -13,10 +15,10 @@ export interface Todo {
 const TodoApp = () => {
 	const [todos, setTodos] = useState<Todo[]>([]);
 	const [title, setTitle] = useState("");
-	const [todoId, setTodoId] = useState(0);
+	const [todoId, setTodoId] = useState("");
 
 	const addTodo = () => {
-		const newTodoId = todoId + 1;
+		const newTodoId = getUniqueKey();
 		const newTodos = [
 			...todos,
 			{
@@ -31,21 +33,21 @@ const TodoApp = () => {
 		setTitle("");
 	};
 
-	const toggleTodoStatus = (id: number) => {
-		setTodos(
-			todos.map((todo) =>
-				todo.id === id
-					? {
-							...todo,
-							completed: !todo.completed,
-					  }
-					: todo
-			)
+	const toggleTodoStatus = (id: string) => {
+		const newTodos = todos.map((todo) =>
+			todo.id === id
+				? {
+						...todo,
+						completed: !todo.completed,
+				  }
+				: todo
 		);
+		localStorage.setItem("todos", JSON.stringify(newTodos));
 		console.log("check!");
+		setTodos(newTodos);
 	};
 
-	const deleteTodo = (id: number) => {
+	const deleteTodo = (id: string) => {
 		const newTodos = todos.filter((todo) => todo.id !== id);
 		localStorage.setItem("todos", JSON.stringify(newTodos));
 		setTodos(newTodos);

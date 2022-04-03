@@ -1,12 +1,13 @@
 import ReactDOM from "../../../src/react-dom/index";
 import { ReactStyleSheet } from "../../../src/style/index";
-import { THEME, utilStyles } from "../../style/util";
+import { utilStyles } from "../../style/util";
+
 import { Todo } from "../../pages/Todo";
 
 const TodoItem = (props: {
 	todo: Todo;
-	onCheck: (id: number) => void;
-	onClickDelete: (id: number) => void;
+	onCheck: (id: string) => void;
+	onClickDelete: (id: string) => void;
 }) => {
 	const { todo, onCheck, onClickDelete } = props;
 
