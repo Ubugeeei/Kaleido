@@ -1,7 +1,6 @@
 import ReactDOM from "../src/react-dom/index";
 import ReactRouter, { useRouter } from "../src/router/index";
 import { ReactStyleSheet } from "../src/style/index";
-import { useEffect } from "../src/hooks/index";
 
 import Home from "./pages/index";
 import Counter from "./pages/counter";
@@ -10,10 +9,6 @@ import { THEME, utilStyles } from "./style/util";
 
 const App = () => {
 	const router = useRouter();
-
-	useEffect(() => {
-		console.log("App mounted");
-	}, []);
 
 	return ReactDOM.createElement(
 		"div",
