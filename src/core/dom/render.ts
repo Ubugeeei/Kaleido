@@ -1,3 +1,4 @@
+import * as deepEqual from "fast-deep-equal";
 import { TEXT_NODE } from "./createElement";
 import { createRealNodeFromVNode } from "./createRealNode";
 import { createVNodeFromRealElement } from "./createVNode";
@@ -30,15 +31,16 @@ const renderNode = (
 	realNode: VirtualNodeType["realNode"],
 	oldVNode: VirtualNodeType | null,
 	newVNode: VirtualNodeType
-): ExpandElement | null => {
+) => {
 	// do none
-	if (newVNode === oldVNode) null;
+	if (deepEqual(newVNode, oldVNode)) return;
 
 	// render text
 	if (
 		oldVNode &&
 		newVNode.nodeType === TEXT_NODE &&
-		oldVNode.nodeType === TEXT_NODE
+		oldVNode.nodeType === TEXT_NODE &&
+		oldVNode.name !== newVNode.name
 	) {
 		realNode = renderTextNode(realNode, newVNode);
 	}
@@ -64,8 +66,6 @@ const renderNode = (
 		newVNode.realNode = realNode;
 		realNode.vdom = newVNode;
 	}
-
-	return realNode;
 };
 
 const renderTextNode = (
