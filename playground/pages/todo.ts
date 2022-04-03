@@ -72,7 +72,8 @@ const TodoApp = () => {
 					"input",
 					{
 						value: title,
-						onInput: (e: { target: { value: string } }) => {
+						type: "text",
+						onChange: (e: { target: { value: string } }) => {
 							setTitle(e.target.value);
 						},
 						style: "margin-right: 15px;",
@@ -93,7 +94,7 @@ const TodoApp = () => {
 
 			ReactDOM.createElement(
 				"ul",
-				{},
+				{ style: utilStyles.pl0 },
 				todos.map((todo) =>
 					ReactDOM.createElement("div", { key: `${todo.id}` }, [
 						TodoItem({

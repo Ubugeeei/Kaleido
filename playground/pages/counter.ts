@@ -25,72 +25,78 @@ const Counter = () => {
 		console.debug("useEffect: Effect only updated count");
 	}, [count]);
 
-	return ReactDOM.createElement("div", { key: "counter-app" }, [
-		ReactDOM.createElement("h3", {}, ["Counter App"]),
-		ReactDOM.createElement("div", { style: utilStyles.flex }, [
-			ReactDOM.createElement(
-				"button",
-				{
-					onclick: () => setCount(count + 1),
-					style: styles.incrementButton + utilStyles.mr4,
-				},
-				["+"]
-			),
-			ReactDOM.createElement("p", {}, [
-				ReactDOM.createElement("span", { style: styles.label }, [
-					"count: ",
-				]),
-				ReactDOM.createElement("span", {}, [`${count}`]),
-			]),
-		]),
-
-		ReactDOM.createElement("div", { style: utilStyles.flex }, [
-			ReactDOM.createElement(
-				"button",
-				{
-					onclick: () => setCount2(count2 + 1),
-					style:
-						utilStyles.mr4 + styles.incrementButton + utilStyles.mr4,
-				},
-				["+"]
-			),
-			ReactDOM.createElement("p", {}, [
-				ReactDOM.createElement("span", { style: styles.label }, [
-					"count2: ",
-				]),
-				ReactDOM.createElement("span", {}, [`${count2}`]),
-			]),
-		]),
-
-		ReactDOM.createElement("div", { style: utilStyles.flex }, [
-			ReactDOM.createElement(
-				"button",
-				{
-					style: styles.incrementButtonDisabled + utilStyles.mr4,
-					disabled: true,
-				},
-				["+"]
-			),
-			ReactDOM.createElement("p", {}, [
-				ReactDOM.createElement("span", { style: styles.label }, [
-					"double: ",
-				]),
-				ReactDOM.createElement("span", {}, [`${count2Double}`]),
-			]),
-		]),
-
-		ReactDOM.createElement(
-			"div",
-			{ style: utilStyles.flex + utilStyles.justifyEnd },
-			[
+	return ReactDOM.createElement(
+		"div",
+		{ id: "pages-counter", key: "pages-counter" },
+		[
+			ReactDOM.createElement("h3", {}, ["Counter App"]),
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
 				ReactDOM.createElement(
 					"button",
-					{ onClick: resetCounts, style: styles.resetCountButton },
-					["reset counts"]
+					{
+						onclick: () => setCount(count + 1),
+						style: styles.incrementButton + utilStyles.mr4,
+					},
+					["+"]
 				),
-			]
-		),
-	]);
+				ReactDOM.createElement("p", {}, [
+					ReactDOM.createElement("span", { style: styles.label }, [
+						"count: ",
+					]),
+					ReactDOM.createElement("span", {}, [`${count}`]),
+				]),
+			]),
+
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
+				ReactDOM.createElement(
+					"button",
+					{
+						onclick: () => setCount2(count2 + 1),
+						style:
+							utilStyles.mr4 +
+							styles.incrementButton +
+							utilStyles.mr4,
+					},
+					["+"]
+				),
+				ReactDOM.createElement("p", {}, [
+					ReactDOM.createElement("span", { style: styles.label }, [
+						"count2: ",
+					]),
+					ReactDOM.createElement("span", {}, [`${count2}`]),
+				]),
+			]),
+
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
+				ReactDOM.createElement(
+					"button",
+					{
+						style: styles.incrementButtonDisabled + utilStyles.mr4,
+						disabled: true,
+					},
+					["+"]
+				),
+				ReactDOM.createElement("p", {}, [
+					ReactDOM.createElement("span", { style: styles.label }, [
+						"double: ",
+					]),
+					ReactDOM.createElement("span", {}, [`${count2Double}`]),
+				]),
+			]),
+
+			ReactDOM.createElement(
+				"div",
+				{ style: utilStyles.flex + utilStyles.justifyEnd },
+				[
+					ReactDOM.createElement(
+						"button",
+						{ onClick: resetCounts, style: styles.resetCountButton },
+						["reset counts"]
+					),
+				]
+			),
+		]
+	);
 };
 
 const styles = ReactStyleSheet.create({

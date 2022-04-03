@@ -17,7 +17,7 @@ const TodoItem = (props: {
 			style:
 				"list-style: none;" +
 				utilStyles.flex +
-				(todo.completed ? utilStyles.op025 : utilStyles.op1) +
+				(todo.completed ? utilStyles.op05 : utilStyles.op1) +
 				(todo.completed ? utilStyles.lineThrough : ""),
 		},
 		[
