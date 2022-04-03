@@ -5,52 +5,135 @@ edit on playground App.ts or components!
 ```ts
 // playground/App.ts
 import ReactDOM from "~/src/react-dom";
-import { useEffect, useState } from "~/src/hooks";
-
-import MyComponent from "./components/MyComponent";
+import { useState, useMemo, useEffect } from "~/src/hooks";
+import { THEME, utilStyles } from "~/playground/style/util";
+import { ReactStyleSheet } from "~/src/style";
 
 const App = () => {
 	const [count, setCount] = useState(0);
+	const [count2, setCount2] = useState(0);
 
-	// component props
-	const [myList] = useState([
-		"item1",
-		"item2",
-		"item3",
-		"item4",
-		"item5",
-	]);
+	const count2Double = useMemo(() => {
+		console.debug("useMemo: count2Double calculated");
+		return count2 * 2;
+	}, [count2]);
 
-	useEffect(() => {
-		console.log("effect!!");
-	});
+	const resetCounts = () => {
+		setCount(0);
+		setCount2(0);
+	};
 
 	useEffect(() => {
-		console.log("effect only mounted!!");
-
-		return () => {
-			console.log("effect only unmounted!!");
-		};
+		console.debug("useEffect: Effect only mounted");
 	}, []);
 
 	useEffect(() => {
-		console.log("effect only updated count!!");
+		console.debug("useEffect: Effect only updated count");
 	}, [count]);
 
-	useEffect(() => {
-		console.log("effect only updated myList!!");
-	}, [myList]);
+	return ReactDOM.createElement(
+		"div",
+		{ id: "pages-counter", key: "pages-counter" },
+		[
+			ReactDOM.createElement("h3", {}, ["Counter App"]),
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
+				ReactDOM.createElement(
+					"button",
+					{
+						onclick: () => setCount(count + 1),
+						style: styles.incrementButton + utilStyles.mr4,
+					},
+					["+"]
+				),
+				ReactDOM.createElement("p", {}, [
+					ReactDOM.createElement("span", { style: styles.label }, [
+						"count: ",
+					]),
+					ReactDOM.createElement("span", {}, [`${count}`]),
+				]),
+			]),
 
-	return ReactDOM.createElement("div", {}, [
-		ReactDOM.createElement("h1", {}, [`Count: ${count}`]),
-		ReactDOM.createElement(
-			"button",
-			{ onclick: () => setCount(count + 1) },
-			["+"]
-		),
-		MyComponent({ myProps: myList }),
-	]);
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
+				ReactDOM.createElement(
+					"button",
+					{
+						onclick: () => setCount2(count2 + 1),
+						style:
+							utilStyles.mr4 +
+							styles.incrementButton +
+							utilStyles.mr4,
+					},
+					["+"]
+				),
+				ReactDOM.createElement("p", {}, [
+					ReactDOM.createElement("span", { style: styles.label }, [
+						"count2: ",
+					]),
+					ReactDOM.createElement("span", {}, [`${count2}`]),
+				]),
+			]),
+
+			ReactDOM.createElement("div", { style: utilStyles.flex }, [
+				ReactDOM.createElement(
+					"button",
+					{
+						style: styles.incrementButtonDisabled + utilStyles.mr4,
+						disabled: true,
+					},
+					["+"]
+				),
+				ReactDOM.createElement("p", {}, [
+					ReactDOM.createElement("span", { style: styles.label }, [
+						"double: ",
+					]),
+					ReactDOM.createElement("span", {}, [`${count2Double}`]),
+				]),
+			]),
+
+			ReactDOM.createElement(
+				"div",
+				{ style: utilStyles.flex + utilStyles.justifyEnd },
+				[
+					ReactDOM.createElement(
+						"button",
+						{ onClick: resetCounts, style: styles.resetCountButton },
+						["reset counts"]
+					),
+				]
+			),
+		]
+	);
 };
+
+const styles = ReactStyleSheet.create({
+	incrementButton: {
+		height: "20px",
+		width: "20px",
+		border: "none",
+		background: THEME.primary,
+		color: "#fff",
+		"border-radius": ".25rem",
+	},
+	incrementButtonDisabled: {
+		height: "20px",
+		width: "20px",
+		border: "none",
+		background: "#ccc",
+		color: "#fff",
+		"border-radius": ".25rem",
+	},
+	resetCountButton: {
+		padding: ".5rem",
+		border: "none",
+		background: THEME.secondary,
+		color: "#fff",
+		"font-weight": "bold",
+		"border-radius": ".25rem",
+	},
+	label: {
+		"font-size": ".8rem",
+	},
+});
 
 ReactDOM.render(App, document.getElementById("root-element"));
 ```
