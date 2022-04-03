@@ -43,7 +43,7 @@ export const updateOnlyThisNode = (
 	return realNode;
 };
 
-export const mergeProperties = (
+const mergeProperties = (
 	oldProps: DOMAttributes,
 	newProp: DOMAttributes
 ) => {
@@ -67,6 +67,11 @@ export const patchProperty = (
 	newPropValue: any
 ) => {
 	if (propName === "key") return;
+
+	if (propName === "value" && Reflect.has(realNode, "value")) {
+		(realNode as HTMLInputElement).value = newPropValue;
+		return;
+	}
 
 	if (propName[0] === "o" && propName[1] === "n") {
 		const eventName = propName.slice(2).toLowerCase();
