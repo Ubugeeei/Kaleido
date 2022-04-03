@@ -43,7 +43,6 @@ const renderNode = (
 		oldVNode.nodeType === TEXT_NODE
 	) {
 		if (oldVNode.name === newVNode.name) return;
-		console.log(oldVNode, newVNode);
 		realNode = renderTextNode(realNode, newVNode);
 	}
 
