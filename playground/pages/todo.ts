@@ -59,12 +59,11 @@ const TodoApp = () => {
 	useEffect(() => {
 		const lsTodo = localStorage.getItem("todos");
 		lsTodo && setTodos(JSON.parse(lsTodo));
-		console.log("init");
 	}, []);
 
 	return ReactDOM.createElement(
 		"div",
-		{ id: "todo-app", key: "todo-app" },
+		{ id: "pages-todo", key: "pages-todo" },
 		[
 			ReactDOM.createElement("h3", {}, ["Todo App"]),
 
