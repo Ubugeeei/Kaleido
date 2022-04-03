@@ -9,7 +9,6 @@ import {
 	KeyAttribute,
 	VirtualNodeType,
 } from "./interface";
-import { omit } from "~/src/helper";
 
 export const render = (
 	newVNode: VirtualNodeType,
@@ -24,6 +23,7 @@ export const render = (
 	vNode.children = [newVNode];
 	newVNode = vNode;
 
+	console.debug("loop");
 	renderNode(realNode.parentElement, realNode, oldVNode, newVNode);
 };
 
@@ -42,7 +42,8 @@ const renderNode = (
 		newVNode.nodeType === TEXT_NODE &&
 		oldVNode.nodeType === TEXT_NODE
 	) {
-		if (oldVNode.name !== newVNode.name) return;
+		if (oldVNode.name === newVNode.name) return;
+		console.log(oldVNode, newVNode);
 		realNode = renderTextNode(realNode, newVNode);
 	}
 
