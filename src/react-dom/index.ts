@@ -1,4 +1,4 @@
-import { rootComponentInstance } from "../react-root/index";
+import { rootComponentInstance } from "~/src/react-root";
 import { createElement } from "./createElement";
 import {
 	VirtualNodeType,

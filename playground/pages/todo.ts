@@ -1,10 +1,10 @@
-import { useEffect, useState } from "../../src/hooks/index";
-import ReactDOM from "../../src/react-dom/index";
-import { ReactStyleSheet } from "../../src/style/index";
+import { useEffect, useState } from "~/src/hooks";
+import ReactDOM from "~/src/react-dom";
+import { ReactStyleSheet } from "~/src/style";
+import { getUniqueKey } from "~/src/helper";
 
-import { THEME, utilStyles } from "../style/util";
-import { getUniqueKey } from "../../src/helper/index";
-import TodoItem from "../components/todo/TodoItem";
+import { THEME, utilStyles } from "~/playground/style/util";
+import TodoItem from "~/playground/components/todo/TodoItem";
 
 export interface Todo {
 	id: string;
@@ -73,7 +73,7 @@ const TodoApp = () => {
 					{
 						value: title,
 						type: "text",
-						onChange: (e: { target: { value: string } }) => {
+						onInput: (e: { target: { value: string } }) => {
 							setTitle(e.target.value);
 						},
 						style: "margin-right: 15px;",

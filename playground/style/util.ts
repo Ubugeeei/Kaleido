@@ -1,4 +1,4 @@
-import { ReactStyleSheet } from "../../src/style/index";
+import { ReactStyleSheet } from "../../src/style";
 
 export const THEME = {
 	primary: "#66f",

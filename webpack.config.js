@@ -22,6 +22,9 @@ module.exports = {
 
 	resolve: {
 		extensions: [".ts", ".js"],
+		alias: {
+			"~": __dirname,
+		},
 	},
 
 	devServer: {

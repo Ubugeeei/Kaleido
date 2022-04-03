@@ -1,8 +1,8 @@
-import ReactDOM from "../src/react-dom/index";
-import ReactRouter, { useRouter } from "../src/router/index";
-import { ReactStyleSheet } from "../src/style/index";
+import ReactDOM from "~/src/react-dom";
+import ReactRouter, { useRouter } from "~/src/router";
+import { ReactStyleSheet } from "~/src/style";
 
-import Home from "./pages/index";
+import Home from "./pages";
 import Counter from "./pages/counter";
 import Todo from "./pages/todo";
 import { THEME, utilStyles } from "./style/util";

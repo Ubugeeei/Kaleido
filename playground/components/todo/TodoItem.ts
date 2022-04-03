@@ -1,8 +1,8 @@
-import ReactDOM from "../../../src/react-dom/index";
-import { ReactStyleSheet } from "../../../src/style/index";
-import { utilStyles } from "../../style/util";
+import ReactDOM from "~/src/react-dom";
+import { ReactStyleSheet } from "~/src/style";
 
-import { Todo } from "../../pages/Todo";
+import { utilStyles } from "~/playground/style/util";
+import { Todo } from "~/playground/pages/Todo";
 
 const TodoItem = (props: {
 	todo: Todo;

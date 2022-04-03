@@ -4,8 +4,9 @@ edit on playground App.ts or components!
 
 ```ts
 // playground/App.ts
-import ReactDOM from "../src/react-dom/index";
-import { useEffect, useState } from "../src/hooks/index";
+import ReactDOM from "~/src/react-dom";
+import { useEffect, useState } from "~/src/hooks";
+
 import MyComponent from "./components/MyComponent";
 
 const App = () => {
@@ -42,7 +43,11 @@ const App = () => {
 
 	return ReactDOM.createElement("div", {}, [
 		ReactDOM.createElement("h1", {}, [`Count: ${count}`]),
-		ReactDOM.createElement("button", { onclick: () => setCount(count + 1) }, ["+"]),
+		ReactDOM.createElement(
+			"button",
+			{ onclick: () => setCount(count + 1) },
+			["+"]
+		),
 		MyComponent({ myProps: myList }),
 	]);
 };
