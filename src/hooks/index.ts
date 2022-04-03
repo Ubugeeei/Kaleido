@@ -1,3 +1,4 @@
+import deepEqual from "fast-deep-equal";
 import { MemorizedStates } from "../components/index";
 import { rootComponentInstance } from "../react-root/index";
 
@@ -49,12 +50,10 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 			};
 		} else {
 			// あれば依存値の新旧を比較し、差異があればisNeedEffectをtrueにしdepsを更新
-			currentEffect.deps.forEach((dep, i) => {
-				if (dep !== deps[i]) {
-					currentEffect.deps = deps;
-					currentEffect.isNeedEffect = true;
-				}
-			});
+			if (!deepEqual(currentEffect.deps, deps)) {
+				currentEffect.deps = deps;
+				currentEffect.isNeedEffect = true;
+			}
 		}
 	} else {
 		rootComponentInstance.mountingEffects.push({
@@ -81,15 +80,11 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 	}
 
 	// updated
-	for (const i in deps) {
-		const _i = Number(i);
-		if (isNaN(_i)) continue;
-		if (deps[_i] !== memo.deps[_i]) {
-			memo.deps = deps;
-			const newValue = getter();
-			memo.value = newValue;
-			return newValue;
-		}
+	if (!deepEqual(deps, memo.deps)) {
+		memo.deps = deps;
+		const newValue = getter();
+		memo.value = newValue;
+		return newValue;
 	}
 
 	rootComponentInstance.currentSetMemoIndex++;
