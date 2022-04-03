@@ -1,8 +1,8 @@
 import {
 	ElementAttachedNeedAttr,
 	VirtualNodeType,
-} from "~/src/react-dom/interface";
-import { render } from "~/src/react-dom/render";
+} from "~/src/core/dom/interface";
+import { render } from "~/src/core/dom/render";
 
 interface Effect {
 	exec: Function;

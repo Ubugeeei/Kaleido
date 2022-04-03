@@ -1,6 +1,6 @@
-import { useEffect, useState } from "~/src/hooks";
-import ReactDOM from "~/src/react-dom";
-import { ReactStyleSheet } from "~/src/style";
+import { useEffect, useState } from "~/src/core/hooks";
+import ReactDOM from "~/src/core/dom";
+import { ReactStyleSheet } from "~/src/core/style";
 import { getUniqueKey } from "~/src/helper";
 
 import { THEME, utilStyles } from "~/playground/style/util";

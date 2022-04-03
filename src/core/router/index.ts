@@ -1,6 +1,6 @@
-import { VirtualNodeType } from "~/src/react-dom/interface";
-import ReactDOM from "~/src/react-dom";
-import { rootComponentInstance } from "~/src/react-root";
+import { VirtualNodeType } from "~/src/core/dom/interface";
+import ReactDOM from "~/src/core/dom";
+import { rootComponentInstance } from "~/src/core/root";
 
 interface RouteOption {
 	path: string;

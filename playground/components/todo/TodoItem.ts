@@ -1,5 +1,5 @@
-import ReactDOM from "~/src/react-dom";
-import { ReactStyleSheet } from "~/src/style";
+import ReactDOM from "~/src/core/dom";
+import { ReactStyleSheet } from "~/src/core/style";
 
 import { utilStyles } from "~/playground/style/util";
 import { Todo } from "~/playground/pages/Todo";

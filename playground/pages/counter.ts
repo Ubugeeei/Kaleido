@@ -1,7 +1,7 @@
-import ReactDOM from "~/src/react-dom";
-import { useState, useMemo, useEffect } from "~/src/hooks";
+import ReactDOM from "~/src/core/dom";
+import { useState, useMemo, useEffect } from "~/src/core/hooks";
 import { THEME, utilStyles } from "~/playground/style/util";
-import { ReactStyleSheet } from "~/src/style";
+import { ReactStyleSheet } from "~/src/core/style";
 
 const Counter = () => {
 	const [count, setCount] = useState(0);

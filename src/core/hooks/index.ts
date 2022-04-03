@@ -1,6 +1,6 @@
 import * as deepEqual from "fast-deep-equal";
-import { MemorizedStates } from "~/src/components";
-import { rootComponentInstance } from "~/src/react-root";
+import { MemorizedStates } from "~/src/core/components";
+import { rootComponentInstance } from "~/src/core/root";
 
 export const useState = <T>(
 	initialValue: T

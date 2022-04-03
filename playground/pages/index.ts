@@ -1,4 +1,4 @@
-import ReactDOM from "~/src/react-dom";
+import ReactDOM from "~/src/core/dom";
 
 const Home = () =>
 	ReactDOM.createElement(

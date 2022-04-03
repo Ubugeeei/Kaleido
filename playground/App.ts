@@ -1,6 +1,6 @@
-import ReactDOM from "~/src/react-dom";
-import ReactRouter, { useRouter } from "~/src/router";
-import { ReactStyleSheet } from "~/src/style";
+import ReactDOM from "~/src/core/dom";
+import ReactRouter, { useRouter } from "~/src/core/router";
+import { ReactStyleSheet } from "~/src/core/style";
 
 import Home from "./pages";
 import Counter from "./pages/counter";
