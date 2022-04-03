@@ -9,6 +9,7 @@ import {
 	KeyAttribute,
 	VirtualNodeType,
 } from "./interface";
+import { omit } from "~/src/helper";
 
 export const render = (
 	newVNode: VirtualNodeType,
@@ -39,9 +40,9 @@ const renderNode = (
 	if (
 		oldVNode &&
 		newVNode.nodeType === TEXT_NODE &&
-		oldVNode.nodeType === TEXT_NODE &&
-		oldVNode.name !== newVNode.name
+		oldVNode.nodeType === TEXT_NODE
 	) {
+		if (oldVNode.name !== newVNode.name) return;
 		realNode = renderTextNode(realNode, newVNode);
 	}
 
@@ -100,6 +101,7 @@ const mutateElement = (
 		oldVNode,
 		newVNode
 	);
+
 	if (!newRealNode) throw new Error("realNode is null.");
 
 	// index for compare new VNode and old VNode
@@ -108,18 +110,21 @@ const mutateElement = (
 	const oldChildrenLength = oldVNode.children.length;
 	const newChildrenLength = newVNode.children.length;
 
-	const hasKeyOldChildren: {
-		[key in KeyAttribute]: VirtualNodeType;
-	} = {};
+	const hasKeyOldChildren: Map<
+		KeyAttribute,
+		VirtualNodeType
+	> = new Map();
+
 	for (const child of oldVNode.children) {
 		const childKey = child.key;
 		if (!childKey) continue;
-		hasKeyOldChildren[childKey] = child;
+		hasKeyOldChildren.set(childKey, child);
 	}
 
-	const renderedNewChildren: {
-		[key in KeyAttribute]: "isRendered";
-	} = {};
+	const renderedNewChildren: Map<
+		KeyAttribute,
+		"isRendered"
+	> = new Map();
 
 	while (newChildCurrentIndex < newChildrenLength) {
 		let oldChildVNode: VirtualNodeType | null;
@@ -135,7 +140,7 @@ const mutateElement = (
 		const newKey = newChildVNode.key;
 
 		// 既にrenderされているoldChildVNodeをスキップする
-		if (oldKey && renderedNewChildren[oldKey] === "isRendered") {
+		if (oldKey && renderedNewChildren.get(oldKey) === "isRendered") {
 			oldChildCurrentIndex++;
 			continue;
 		}
@@ -180,10 +185,10 @@ const mutateElement = (
 					oldChildVNode,
 					newChildVNode
 				);
-				renderedNewChildren[newKey] = "isRendered";
+				renderedNewChildren.set(newKey, "isRendered");
 				oldChildCurrentIndex++;
 			} else {
-				const previousRenderValue = hasKeyOldChildren[newKey];
+				const previousRenderValue = hasKeyOldChildren.get(newKey);
 				// 以前のrender時には既にこのkeyを持つ要素が存在していた場合
 				if (previousRenderValue) {
 					renderNode(
@@ -192,7 +197,7 @@ const mutateElement = (
 						previousRenderValue,
 						newChildVNode
 					);
-					renderedNewChildren[newKey] = "isRendered";
+					renderedNewChildren.set(newKey, "isRendered");
 				}
 				// keyを持つ要素の追加処理
 				else {
@@ -203,7 +208,7 @@ const mutateElement = (
 						newChildVNode
 					);
 				}
-				renderedNewChildren[newKey] = "isRendered";
+				renderedNewChildren.set(newKey, "isRendered");
 			}
 
 			newChildCurrentIndex++;
@@ -221,9 +226,9 @@ const mutateElement = (
 	}
 
 	// keyをもつoldVNodeの子要素の中で新しいVNodeでは削除されているものを削除
-	for (const oldKey in hasKeyOldChildren) {
-		if (!renderedNewChildren[oldKey]) {
-			const willRemoveNode = hasKeyOldChildren[oldKey].realNode;
+	for (const [oldKey, oldChildVNode] of hasKeyOldChildren.entries()) {
+		if (!renderedNewChildren.get(oldKey)) {
+			const willRemoveNode = oldChildVNode.realNode;
 			if (willRemoveNode) newRealNode.removeChild(willRemoveNode);
 		}
 	}
