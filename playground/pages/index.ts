@@ -1,10 +1,10 @@
-import ReactDOM from "~/src/core/dom";
+import KaleidoDOM from "~/src/core/dom";
 
 const Home = () =>
-	ReactDOM.createElement(
+	KaleidoDOM.createElement(
 		"div",
 		{ id: "pages-home", key: "pages-home" },
-		[ReactDOM.createElement("h3", {}, ["Hello React Scratch!"])]
+		[KaleidoDOM.createElement("h3", {}, ["Hello Kaleido!"])]
 	);
 
 export default Home;

@@ -1,4 +1,4 @@
-import React from "~/src/core/components";
+import Kaleido from "~/src/core/components";
 
-class RootComponent extends React.Component {}
+class RootComponent extends Kaleido.Component {}
 export const rootComponentInstance = new RootComponent();

@@ -1,4 +1,4 @@
-import { ReactStyleSheet } from "../../src/core/style";
+import { KaleidoStyleSheet } from "../../src/core/style";
 
 export const THEME = {
 	primary: "#66f",
@@ -864,6 +864,6 @@ const createUtilSSInput = () => ({
 type UtilStyles = {
 	[key in keyof ReturnType<typeof createUtilSSInput>]: string;
 };
-export const utilStyles = ReactStyleSheet.create(
+export const utilStyles = KaleidoStyleSheet.create(
 	createUtilSSInput()
 ) as UtilStyles;

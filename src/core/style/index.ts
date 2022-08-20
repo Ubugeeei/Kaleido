@@ -6,7 +6,7 @@ interface StyleObject {
 	[key: keyof StyleObjectInput]: string;
 }
 
-export const ReactStyleSheet = {
+export const KaleidoStyleSheet = {
 	create(o: StyleObjectInput): StyleObject {
 		const styles: StyleObject = {};
 

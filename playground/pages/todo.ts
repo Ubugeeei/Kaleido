@@ -1,6 +1,6 @@
 import { useEffect, useState } from "~/src/core/hooks";
-import ReactDOM from "~/src/core/dom";
-import { ReactStyleSheet } from "~/src/core/style";
+import KaleidoDOM from "~/src/core/dom";
+import { KaleidoStyleSheet } from "~/src/core/style";
 import { getUniqueKey } from "~/src/helper";
 
 import { THEME, utilStyles } from "~/playground/style/util";
@@ -61,14 +61,14 @@ const TodoApp = () => {
 		lsTodo && setTodos(JSON.parse(lsTodo));
 	}, []);
 
-	return ReactDOM.createElement(
+	return KaleidoDOM.createElement(
 		"div",
 		{ id: "pages-todo", key: "pages-todo" },
 		[
-			ReactDOM.createElement("h3", {}, ["Todo App"]),
+			KaleidoDOM.createElement("h3", {}, ["Todo App"]),
 
-			ReactDOM.createElement("div", {}, [
-				ReactDOM.createElement(
+			KaleidoDOM.createElement("div", {}, [
+				KaleidoDOM.createElement(
 					"input",
 					{
 						value: title,
@@ -80,7 +80,7 @@ const TodoApp = () => {
 					},
 					[]
 				),
-				ReactDOM.createElement(
+				KaleidoDOM.createElement(
 					"button",
 					{
 						onClick: () => {
@@ -92,11 +92,11 @@ const TodoApp = () => {
 				),
 			]),
 
-			ReactDOM.createElement(
+			KaleidoDOM.createElement(
 				"ul",
 				{ style: utilStyles.pl0 },
 				todos.map((todo) =>
-					ReactDOM.createElement("div", { key: `${todo.id}` }, [
+					KaleidoDOM.createElement("div", { key: `${todo.id}` }, [
 						TodoItem({
 							todo,
 							onCheck: () => {
@@ -113,7 +113,7 @@ const TodoApp = () => {
 	);
 };
 
-const styles = ReactStyleSheet.create({
+const styles = KaleidoStyleSheet.create({
 	addTodoButton: {
 		padding: ".5rem",
 		border: "none",

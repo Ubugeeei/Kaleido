@@ -1,5 +1,5 @@
 import { VirtualNodeType } from "~/src/core/dom/interface";
-import ReactDOM from "~/src/core/dom";
+import KaleidoDOM from "~/src/core/dom";
 import { rootComponentInstance } from "~/src/core/root";
 
 interface RouteOption {
@@ -15,7 +15,7 @@ export const Router = (
 ) => {
 	const route = routes.find((it) => it.path === location.pathname);
 
-	return ReactDOM.createElement("div", props, [
+	return KaleidoDOM.createElement("div", props, [
 		route ? route.component() : "",
 	]);
 };

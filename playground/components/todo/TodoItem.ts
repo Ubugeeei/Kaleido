@@ -1,5 +1,5 @@
-import ReactDOM from "~/src/core/dom";
-import { ReactStyleSheet } from "~/src/core/style";
+import KaleidoDOM from "~/src/core/dom";
+import { KaleidoStyleSheet } from "~/src/core/style";
 
 import { utilStyles } from "~/playground/style/util";
 import { Todo } from "~/playground/pages/Todo";
@@ -11,7 +11,7 @@ const TodoItem = (props: {
 }) => {
 	const { todo, onCheck, onClickDelete } = props;
 
-	return ReactDOM.createElement(
+	return KaleidoDOM.createElement(
 		"li",
 		{
 			style:
@@ -21,7 +21,7 @@ const TodoItem = (props: {
 				(todo.completed ? utilStyles.lineThrough : ""),
 		},
 		[
-			ReactDOM.createElement(
+			KaleidoDOM.createElement(
 				"input",
 				{
 					type: "checkbox",
@@ -35,8 +35,8 @@ const TodoItem = (props: {
 				},
 				[]
 			),
-			ReactDOM.createElement("span", {}, [todo.title]),
-			ReactDOM.createElement(
+			KaleidoDOM.createElement("span", {}, [todo.title]),
+			KaleidoDOM.createElement(
 				"button",
 				{
 					onClick: () => {
@@ -51,7 +51,7 @@ const TodoItem = (props: {
 	);
 };
 
-const styles = ReactStyleSheet.create({
+const styles = KaleidoStyleSheet.create({
 	checkedInput: {
 		height: "20px",
 		width: "20px",

@@ -1,7 +1,7 @@
-import ReactDOM from "~/src/core/dom";
+import KaleidoDOM from "~/src/core/dom";
 import { useState, useMemo, useEffect } from "~/src/core/hooks";
 import { THEME, utilStyles } from "~/playground/style/util";
-import { ReactStyleSheet } from "~/src/core/style";
+import { KaleidoStyleSheet } from "~/src/core/style";
 
 const Counter = () => {
 	const [count, setCount] = useState(0);
@@ -25,13 +25,13 @@ const Counter = () => {
 		console.debug("useEffect: Effect only updated count");
 	}, [count]);
 
-	return ReactDOM.createElement(
+	return KaleidoDOM.createElement(
 		"div",
 		{ id: "pages-counter", key: "pages-counter" },
 		[
-			ReactDOM.createElement("h3", {}, ["Counter App"]),
-			ReactDOM.createElement("div", { style: utilStyles.flex }, [
-				ReactDOM.createElement(
+			KaleidoDOM.createElement("h3", {}, ["Counter App"]),
+			KaleidoDOM.createElement("div", { style: utilStyles.flex }, [
+				KaleidoDOM.createElement(
 					"button",
 					{
 						onclick: () => setCount(count + 1),
@@ -39,16 +39,16 @@ const Counter = () => {
 					},
 					["+"]
 				),
-				ReactDOM.createElement("p", {}, [
-					ReactDOM.createElement("span", { style: styles.label }, [
+				KaleidoDOM.createElement("p", {}, [
+					KaleidoDOM.createElement("span", { style: styles.label }, [
 						"count: ",
 					]),
-					ReactDOM.createElement("span", {}, [`${count}`]),
+					KaleidoDOM.createElement("span", {}, [`${count}`]),
 				]),
 			]),
 
-			ReactDOM.createElement("div", { style: utilStyles.flex }, [
-				ReactDOM.createElement(
+			KaleidoDOM.createElement("div", { style: utilStyles.flex }, [
+				KaleidoDOM.createElement(
 					"button",
 					{
 						onclick: () => setCount2(count2 + 1),
@@ -59,16 +59,16 @@ const Counter = () => {
 					},
 					["+"]
 				),
-				ReactDOM.createElement("p", {}, [
-					ReactDOM.createElement("span", { style: styles.label }, [
+				KaleidoDOM.createElement("p", {}, [
+					KaleidoDOM.createElement("span", { style: styles.label }, [
 						"count2: ",
 					]),
-					ReactDOM.createElement("span", {}, [`${count2}`]),
+					KaleidoDOM.createElement("span", {}, [`${count2}`]),
 				]),
 			]),
 
-			ReactDOM.createElement("div", { style: utilStyles.flex }, [
-				ReactDOM.createElement(
+			KaleidoDOM.createElement("div", { style: utilStyles.flex }, [
+				KaleidoDOM.createElement(
 					"button",
 					{
 						style: styles.incrementButtonDisabled + utilStyles.mr4,
@@ -76,19 +76,19 @@ const Counter = () => {
 					},
 					["+"]
 				),
-				ReactDOM.createElement("p", {}, [
-					ReactDOM.createElement("span", { style: styles.label }, [
+				KaleidoDOM.createElement("p", {}, [
+					KaleidoDOM.createElement("span", { style: styles.label }, [
 						"double: ",
 					]),
-					ReactDOM.createElement("span", {}, [`${count2Double}`]),
+					KaleidoDOM.createElement("span", {}, [`${count2Double}`]),
 				]),
 			]),
 
-			ReactDOM.createElement(
+			KaleidoDOM.createElement(
 				"div",
 				{ style: utilStyles.flex + utilStyles.justifyEnd },
 				[
-					ReactDOM.createElement(
+					KaleidoDOM.createElement(
 						"button",
 						{ onClick: resetCounts, style: styles.resetCountButton },
 						["reset counts"]
@@ -99,7 +99,7 @@ const Counter = () => {
 	);
 };
 
-const styles = ReactStyleSheet.create({
+const styles = KaleidoStyleSheet.create({
 	incrementButton: {
 		height: "20px",
 		width: "20px",

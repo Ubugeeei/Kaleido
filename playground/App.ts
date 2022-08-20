@@ -1,6 +1,6 @@
-import ReactDOM from "~/src/core/dom";
-import ReactRouter, { useRouter } from "~/src/core/router";
-import { ReactStyleSheet } from "~/src/core/style";
+import KaleidoDOM from "~/src/core/dom";
+import KaleidoRouter, { useRouter } from "~/src/core/router";
+import { KaleidoStyleSheet } from "~/src/core/style";
 
 import Home from "./pages";
 import Counter from "./pages/counter";
@@ -10,15 +10,15 @@ import { THEME, utilStyles } from "./style/util";
 const App = () => {
 	const router = useRouter();
 
-	return ReactDOM.createElement(
+	return KaleidoDOM.createElement(
 		"div",
 		{ style: styles.appContainer },
 		[
-			ReactDOM.createElement(
+			KaleidoDOM.createElement(
 				"nav",
 				{ style: utilStyles.flex + styles.nav },
 				[
-					ReactDOM.createElement(
+					KaleidoDOM.createElement(
 						"div",
 						{
 							onClick: () => router.push("/"),
@@ -26,7 +26,7 @@ const App = () => {
 						},
 						["home"]
 					),
-					ReactDOM.createElement(
+					KaleidoDOM.createElement(
 						"div",
 						{
 							onClick: () => router.push("/counter"),
@@ -34,7 +34,7 @@ const App = () => {
 						},
 						["counter"]
 					),
-					ReactDOM.createElement(
+					KaleidoDOM.createElement(
 						"div",
 						{
 							onClick: () => router.push("/todo"),
@@ -45,16 +45,16 @@ const App = () => {
 				]
 			),
 
-			ReactRouter.Router({ style: utilStyles.pa4 }, [
-				ReactRouter.Route({ path: "/", component: Home }),
-				ReactRouter.Route({ path: "/counter", component: Counter }),
-				ReactRouter.Route({ path: "/todo", component: Todo }),
+			KaleidoRouter.Router({ style: utilStyles.pa4 }, [
+				KaleidoRouter.Route({ path: "/", component: Home }),
+				KaleidoRouter.Route({ path: "/counter", component: Counter }),
+				KaleidoRouter.Route({ path: "/todo", component: Todo }),
 			]),
 		]
 	);
 };
 
-const styles = ReactStyleSheet.create({
+const styles = KaleidoStyleSheet.create({
 	appContainer: {
 		height: "100%",
 		"min-height": "600px",
@@ -74,4 +74,4 @@ const styles = ReactStyleSheet.create({
 	},
 });
 
-ReactDOM.render(App, document.getElementById("root-element"));
+KaleidoDOM.render(App, document.getElementById("root-element"));
