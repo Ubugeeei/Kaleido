@@ -9,10 +9,55 @@ class TSXTranspiler {
   }
 
   transpile(source: string): string {
+    this.cursor = 0;
     this.skipWhitespace(source);
     return this.result;
   }
 
+  transpileAttr(source: string): string | ParseError {
+    let result = '';
+    result += this.letter(source);
+    this.skipWhitespace(source);
+    if (source[this.cursor] === '=') {
+      result += ':';
+      this.cursor++;
+      this.skipWhitespace(source);
+      switch (source[this.cursor]) {
+        case '"': {
+          result += '"';
+          this.cursor++;
+          while (source[this.cursor] !== '"') {
+            result += source[this.cursor];
+            this.cursor++;
+          }
+          result += '"';
+          this.cursor++;
+          break;
+        }
+        case "{": {
+          this.cursor++;
+          while (source[this.cursor] !== "}") {
+            result += source[this.cursor];
+            this.cursor++;
+          }
+          this.cursor++;
+          break;
+        }
+        default: {
+          const err = new ParseError(`transpileAttr (value): ${source.slice(this.cursor - 1)}`);
+          console.error(err);
+          return err;
+        }
+      }
+    } else {
+      const err = new ParseError(`transpileAttr (key): ${source.slice(this.cursor - 1)}`);
+      console.error(err);
+      return err;
+    }
+
+    this.cursor++;
+    return result
+  }
 
   letter(source: string): string | ParseError {
     let result = '';
@@ -22,7 +67,7 @@ class TSXTranspiler {
       result += source[this.cursor];
       this.cursor++;
     } else {
-      const err = new ParseError(`letter: ${source.slice(this.cursor)}`);
+      const err = new ParseError(`letter: ${source.slice(this.cursor - 1)}`);
       console.error(err);
       return err;
     }
@@ -36,7 +81,6 @@ class TSXTranspiler {
 
   private skipWhitespace(source: string) {
     while (this.cursor < source.length && source[this.cursor] === ' ') {
-      this.result += source[this.cursor];
       this.cursor++;
     }
   }
@@ -55,6 +99,18 @@ class ParseError extends Error {
 
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest
+  it('transpileAttr', () => {
+    {
+      const tsxt = new TSXTranspiler();
+      expect(tsxt.transpileAttr('onClick={countUp}')).toBe('onClick:countUp');
+    }
+
+    {
+      const tsxt = new TSXTranspiler();
+      expect(tsxt.transpileAttr('class="ma-1"')).toBe('class:"ma-1"');
+    }
+  })
+
   it('transepile empty sourse', () => {
     {
       const tsxt = new TSXTranspiler();
@@ -62,7 +118,7 @@ if (import.meta.vitest) {
     }
     {
       const tsxt = new TSXTranspiler();
-      expect(tsxt.transpile('  ')).toBe('  ');
+      expect(tsxt.transpile('  ')).toBe('');
     }
   })
 
