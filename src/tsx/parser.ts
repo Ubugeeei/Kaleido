@@ -13,6 +13,7 @@ class TSXTranspiler {
 
   private skipWhitespace() {
     while (this.cursor < this.source.length && this.source[this.cursor] === ' ') {
+      this.result += this.source[this.cursor];
       this.cursor++;
     }
   }
@@ -23,5 +24,10 @@ if (import.meta.vitest) {
   it('transepile empty sourse', () => {
     const tsxt = new TSXTranspiler('');
     expect(tsxt.transepile()).toBe('');
+  })
+
+  it('transepile blank sourse', () => {
+    const tsxt = new TSXTranspiler('  ');
+    expect(tsxt.transepile()).toBe('  ');
   })
 }
