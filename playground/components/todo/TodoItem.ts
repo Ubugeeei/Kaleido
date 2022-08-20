@@ -2,7 +2,7 @@ import KaleidoDOM from "~/src/core/dom";
 import { KaleidoStyleSheet } from "~/src/core/style";
 
 import { utilStyles } from "~/playground/style/util";
-import { Todo } from "~/playground/pages/Todo";
+import { Todo } from "~/playground/pages/todo";
 
 const TodoItem = (props: {
 	todo: Todo;
