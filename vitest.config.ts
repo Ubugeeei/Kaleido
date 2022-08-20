@@ -15,6 +15,6 @@ export default defineConfig({
   test: {
     globals: true,
     silent: true,
-    includeSource: ['src/**/*.{ts}'],
+    includeSource: ['src/**/*.ts'],
   }
 });
