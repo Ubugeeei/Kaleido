@@ -1,7 +1,7 @@
 {
-	"name": "virtual-dom-scratch",
+	"name": "kaleido",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "dist/bundle.js",
 	"license": "MIT",
 	"scripts": {
 		"start": "webpack-dev-server",
