@@ -5,7 +5,7 @@ Scratch implementation in TypeScript. Virtual DOM, Hooks, Router, StyleSheet
 
 ## Deps
 
-bundler: [webpack](https://webpack.js.org/) and ts-loader
+bundler: [vite](https://vitejs.dev/config/shared-options.html#cachedir)
 
 ## Docs
 
