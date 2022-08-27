@@ -1,10 +1,11 @@
-import { MemorizedStates, MutableRefObject } from "~/src/core/root";
-import { rootComponentInstance } from "~/src/core/root";
+import { MemorizedStates, MutableRefObject, rootComponentInstance } from "~/src/core/root";
 import { shallowEqualArray } from "~/src/helper";
+
+type SetStateAction<S> = S | ((prevState: S) => S);
 
 export const useState = <T>(
 	initialValue: T
-): [T, (arg: T) => void] => {
+): [T, (setStateAction: SetStateAction<T>) => void] => {
 	const i = rootComponentInstance.currentSetStateIndex;
 	if (!rootComponentInstance.states[i]) {
 		rootComponentInstance.states.push({
@@ -18,8 +19,14 @@ export const useState = <T>(
 		rootComponentInstance.states[i].initialized = true;
 	}
 
-	const setState = (newVal: T): void => {
-		rootComponentInstance.states[i].value = newVal;
+	const setState = (setStateAction: SetStateAction<T>): void => {
+		if (typeof setStateAction === "function") {
+			setStateAction = setStateAction as ((current: T) => T) // type guard
+			rootComponentInstance.states[i].value = setStateAction(rootComponentInstance.states[i].value as T);
+		} else {
+			rootComponentInstance.states[i].value = setStateAction;
+		}
+
 		rootComponentInstance.render();
 	};
 
