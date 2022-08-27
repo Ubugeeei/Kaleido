@@ -1,4 +1,4 @@
-import * as deepEqual from "fast-deep-equal";
+// import * as deepEqual from "fast-deep-equal";
 import { TEXT_NODE } from "./createElement";
 import { createRealNodeFromVNode } from "./createRealNode";
 import { createVNodeFromRealElement } from "./createVNode";
@@ -33,7 +33,7 @@ const renderNode = (
 	newVNode: VirtualNodeType
 ) => {
 	// do none
-	if (deepEqual(newVNode, oldVNode)) return;
+	// if (deepEqual(newVNode, oldVNode)) return;
 
 	// render text
 	if (
@@ -114,7 +114,7 @@ const renderNode = (
 				oldChildVNode &&
 				oldChildVNode.children[oldChildCurrentIndex + 1] &&
 				newKey ===
-					oldChildVNode.children[oldChildCurrentIndex + 1].key
+				oldChildVNode.children[oldChildCurrentIndex + 1].key
 			) {
 				// keyのない要素は以前のrenderの時と同じ位置になかったら削除する
 				if (!oldKey) {
