@@ -87,13 +87,17 @@ can use: useEffect, useMemo, useCallback, useRef, useContext, useRouter
 const [count, setCount] = useState(0);
 setCount(3);
 setCount((prev) => prev + 1);
+```
 
+```ts
 // memorization
 const double = useMemo(() => count * 2, [count]);
 const logDouble = useCallback(() => {
 	console.log("double updated!", double);
 }, [double]);
+```
 
+```ts
 // effect
 useEffect(() => {
 	console.log("render");
@@ -106,12 +110,16 @@ useEffect(() => {
 useEffect(() => {
 	console.log("count is updated!", count);
 }, [count]);
+```
 
+```ts
 // ref
 const inputEl = useRef<HTMLInputElement | null>(null);
 // use with
 // KaleidoDOM.createElement('input', { ref: inputEl }, [])
+```
 
+```ts
 // context
 interface CounterContextProps {
 	count: number;
@@ -132,7 +140,9 @@ const Child = () => {
 	const { count, setCount } = useContext(CounterContext);
 	// ...
 };
+```
 
+```ts
 // router
 const router = useRouter();
 const toDetail = () => {
