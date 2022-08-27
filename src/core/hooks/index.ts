@@ -1,4 +1,4 @@
-import { MemorizedStates } from "~/src/core/components";
+import { MemorizedStates, MutableRefObject } from "~/src/core/components";
 import { rootComponentInstance } from "~/src/core/root";
 import { shallowEqualArray } from "~/src/helper";
 
@@ -113,4 +113,18 @@ export const useCallback = (cb: Function, deps: unknown[]) => {
 
 	rootComponentInstance.currentSetCallbackIndex++;
 	return callback.value;
+}
+
+export const useRef = <T>(initialValue: T): MutableRefObject<T> => {
+	const i = rootComponentInstance.currentSetRefIndex;
+
+	if (rootComponentInstance.mutableRefs[i] === undefined) {
+		rootComponentInstance.mutableRefs[i] = {
+			current: initialValue,
+		};
+	}
+
+	rootComponentInstance.currentSetRefIndex++;
+
+	return rootComponentInstance.mutableRefs[i] as MutableRefObject<T>;
 }

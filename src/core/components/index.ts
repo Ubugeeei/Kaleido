@@ -27,6 +27,10 @@ export interface MemorizedCallbackFunction {
 	deps: unknown[];
 }
 
+export type MutableRefObject<T> = {
+	current: T;
+}
+
 export class Component {
 	vNodeRender!: () => VirtualNodeType;
 	realNode?: ElementAttachedNeedAttr | null;
@@ -35,12 +39,15 @@ export class Component {
 	callbacks: MemorizedCallbackFunction[] = [];
 	renderingEffects: Effect[] = [];
 	depsRenderingEffects: DepsEffect[] = [];
+	mutableRefs: MutableRefObject<unknown>[] = [];
 	mountingEffects: Effect[] = [];
 	unMountingEffects: Function[] = [];
 	currentSetStateIndex: number = 0;
 	currentSetEffectIndex: number = 0;
 	currentSetMemoIndex: number = 0;
 	currentSetCallbackIndex: number = 0;
+	currentSetRefIndex = 0;
+
 
 	constructor() { }
 
