@@ -1,9 +1,8 @@
-import KaleidoDOM from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 import { KaleidoStyleSheet } from "~/src/core/style";
 
 import { utilStyles } from "~/playground/style/util";
 import { Todo } from "~/playground/pages/todo";
-import { FC } from "~/src/core/dom";
 
 interface Props {
 	todo: Todo;

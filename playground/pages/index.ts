@@ -1,5 +1,4 @@
-import KaleidoDOM from "~/src/core/dom";
-import { FC } from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 
 const Home: FC<{}> = () =>
 	KaleidoDOM.createElement(

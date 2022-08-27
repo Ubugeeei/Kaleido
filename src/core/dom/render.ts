@@ -1,4 +1,3 @@
-// import * as deepEqual from "fast-deep-equal";
 import { TEXT_NODE } from "./createElement";
 import { createRealNodeFromVNode } from "./createRealNode";
 import { createVNodeFromRealElement } from "./createVNode";
