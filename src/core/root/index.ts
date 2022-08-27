@@ -34,18 +34,28 @@ interface DepsEffect extends Effect {
 class InternalRouteState {
   vNodeRender!: () => VirtualNodeType;
   realNode?: ElementAttachedNeedAttr | null;
+
+  /** for useState */
   states: State[] = [];
+  currentSetStateIndex = 0;
+
+  /** for useMemo */
   memorizedStates: MemorizedStates[] = [];
+  currentSetMemoIndex = 0;
+
+  /** for useCallback */
   callbacks: MemorizedCallbackFunction[] = [];
+  currentSetCallbackIndex = 0;
+
+  /** for useEffect */
   renderingEffects: Effect[] = [];
   depsRenderingEffects: DepsEffect[] = [];
-  mutableRefs: MutableRefObject<unknown>[] = [];
   mountingEffects: Effect[] = [];
   unMountingEffects: Function[] = [];
-  currentSetStateIndex: number = 0;
-  currentSetEffectIndex: number = 0;
-  currentSetMemoIndex: number = 0;
-  currentSetCallbackIndex: number = 0;
+  currentSetEffectIndex = 0;
+
+  /** for useRef */
+  mutableRefs: MutableRefObject<unknown>[] = [];
   currentSetRefIndex = 0;
 
   mount(
@@ -103,15 +113,22 @@ class InternalRouteState {
 
   cleanUp() {
     this.states = [];
+    this.currentSetStateIndex = 0;
+
     this.memorizedStates = [];
+    this.currentSetMemoIndex = 0;
+
+    this.callbacks = [];
+    this.currentSetCallbackIndex = 0;
+
     this.renderingEffects = [];
     this.depsRenderingEffects = [];
     this.mountingEffects = [];
     this.unMountingEffects = [];
-    this.currentSetStateIndex = 0;
     this.currentSetEffectIndex = 0;
-    this.currentSetMemoIndex = 0;
-    this.currentSetCallbackIndex = 0;
+
+    this.mutableRefs = [];
+    this.currentSetRefIndex = 0;
   }
 }
 
