@@ -2,11 +2,12 @@ import { MemorizedStates, MutableRefObject, rootComponentInstance } from "~/src/
 import { Context } from "~/src/core/context";
 import { shallowEqualArray } from "~/src/helper";
 
-type SetStateAction<S> = S | ((prevState: S) => S);
+export type Dispatch<A> = (setStateAction: SetStateAction<A>) => void
+export type SetStateAction<S> = S | ((prevState: S) => S);
 
 export const useState = <T>(
 	initialValue: T
-): [T, (setStateAction: SetStateAction<T>) => void] => {
+): [T, Dispatch<T>] => {
 	const i = rootComponentInstance.currentSetStateIndex;
 	if (!rootComponentInstance.states[i]) {
 		rootComponentInstance.states.push({
