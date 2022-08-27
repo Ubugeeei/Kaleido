@@ -49,7 +49,7 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 			};
 		} else {
 			// あれば依存値の新旧を比較し、差異があればisNeedEffectをtrueにしdepsを更新
-			if (!currentEffect.deps !== deps) {
+			if (currentEffect.deps !== deps) {
 				currentEffect.deps = deps;
 				currentEffect.isNeedEffect = true;
 			}
