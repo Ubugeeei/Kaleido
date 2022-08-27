@@ -80,20 +80,24 @@ KaleidoDOM.render(App, document.getElementById("root-element"));
 
 ### Other Hooks
 
-can use: useEffect, useMemo, useCallback, useRef, useRouter
+can use: useEffect, useMemo, useCallback, useRef, useContext, useRouter
 
 ```ts
 // state
 const [count, setCount] = useState(0);
 setCount(3);
 setCount((prev) => prev + 1);
+```
 
+```ts
 // memorization
 const double = useMemo(() => count * 2, [count]);
 const logDouble = useCallback(() => {
 	console.log("double updated!", double);
 }, [double]);
+```
 
+```ts
 // effect
 useEffect(() => {
 	console.log("render");
@@ -106,12 +110,40 @@ useEffect(() => {
 useEffect(() => {
 	console.log("count is updated!", count);
 }, [count]);
+```
 
+```ts
 // ref
 const inputEl = useRef<HTMLInputElement | null>(null);
 // use with
 // KaleidoDOM.createElement('input', { ref: inputEl }, [])
+```
 
+```ts
+// context
+// ※ Not fully working.
+interface CounterContextProps {
+	count: number;
+	setCount: Dispatch<number>;
+}
+export const CounterContext = createContext<CounterContextProps>({
+	count: 0,
+	setCount: () => {},
+});
+const Parent = () => {
+	const [count, setCount] = useState(0);
+	return CounterContext.Provider(
+		{ value: { count, setCount } },
+		Child()
+	);
+};
+const Child = () => {
+	const { count, setCount } = useContext(CounterContext);
+	// ...
+};
+```
+
+```ts
 // router
 const router = useRouter();
 const toDetail = () => {

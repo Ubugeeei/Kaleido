@@ -56,6 +56,10 @@ class InternalRouteState {
   mutableRefs: MutableRefObject<unknown>[] = [];
   currentSetMutableRefIndex = 0;
 
+  /** context */
+  contextStates: unknown[] = []
+  currentSetContextStateIndex = 0;
+
   mount(
     vNodeRender: FC<{}>,
     realNode?: ElementAttachedNeedAttr | null
@@ -126,6 +130,9 @@ class InternalRouteState {
 
     this.mutableRefs = [];
     this.currentSetMutableRefIndex = 0;
+
+    this.contextStates = [];
+    this.currentSetContextStateIndex = 0;
   }
 }
 

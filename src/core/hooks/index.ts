@@ -1,11 +1,13 @@
 import { MemorizedStates, MutableRefObject, rootComponentInstance } from "~/src/core/root";
+import { Context } from "~/src/core/context";
 import { shallowEqualArray } from "~/src/helper";
 
-type SetStateAction<S> = S | ((prevState: S) => S);
+export type Dispatch<A> = (setStateAction: SetStateAction<A>) => void
+export type SetStateAction<S> = S | ((prevState: S) => S);
 
 export const useState = <T>(
 	initialValue: T
-): [T, (setStateAction: SetStateAction<T>) => void] => {
+): [T, Dispatch<T>] => {
 	const i = rootComponentInstance.currentSetStateIndex;
 	if (!rootComponentInstance.states[i]) {
 		rootComponentInstance.states.push({
@@ -134,4 +136,12 @@ export const useRef = <T>(initialValue: T): MutableRefObject<T> => {
 	rootComponentInstance.currentSetMutableRefIndex++;
 
 	return rootComponentInstance.mutableRefs[i] as MutableRefObject<T>;
+}
+
+export const useContext = <T>(context: Context<T>): T => {
+	let state: T;
+	context.Consumer(st => {
+		state = st
+	})
+	return state!
 }

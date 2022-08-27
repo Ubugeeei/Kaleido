@@ -6,6 +6,7 @@ import Home from "./pages";
 import Counter from "./pages/counter";
 import Todo from "./pages/todo";
 import RefSample from "./pages/ref";
+import ContextSamplePage from "./pages/context";
 
 import { THEME, utilStyles } from "./style/util";
 
@@ -50,7 +51,15 @@ const App: FC<{}> = () => {
 							onClick: () => router.push("/ref-sample"),
 							style: utilStyles.mr3,
 						},
-						["ref sample"]
+						["ref"]
+					),
+					KaleidoDOM.createElement(
+						"div",
+						{
+							onClick: () => router.push("/context-sample"),
+							style: utilStyles.mr3,
+						},
+						["context"]
 					),
 				]
 			),
@@ -60,6 +69,7 @@ const App: FC<{}> = () => {
 				KaleidoRouter.Route({ path: "/counter", component: Counter }),
 				KaleidoRouter.Route({ path: "/todo", component: Todo }),
 				KaleidoRouter.Route({ path: "/ref-sample", component: RefSample }),
+				KaleidoRouter.Route({ path: "/context-sample", component: ContextSamplePage }),
 			]),
 		]
 	);
