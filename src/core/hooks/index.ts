@@ -1,4 +1,4 @@
-import { MemorizedStates, MutableRefObject } from "~/src/core/components";
+import { MemorizedStates, MutableRefObject } from "~/src/core/root";
 import { rootComponentInstance } from "~/src/core/root";
 import { shallowEqualArray } from "~/src/helper";
 
