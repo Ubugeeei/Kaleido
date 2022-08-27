@@ -1,6 +1,6 @@
-import KaleidoDOM from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 
-const Home = () =>
+const Home: FC<{}> = () =>
 	KaleidoDOM.createElement(
 		"div",
 		{ id: "pages-home", key: "pages-home" },

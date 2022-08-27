@@ -1,9 +1,9 @@
-import KaleidoDOM from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 import { useState, useMemo, useEffect } from "~/src/core/hooks";
 import { THEME, utilStyles } from "~/playground/style/util";
 import { KaleidoStyleSheet } from "~/src/core/style";
 
-const Counter = () => {
+const Counter: FC<{}> = () => {
 	const [count, setCount] = useState(0);
 	const [count2, setCount2] = useState(0);
 

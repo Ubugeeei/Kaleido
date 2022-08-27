@@ -1,5 +1,5 @@
+import KaleidoDOM, { FC } from "~/src/core/dom";
 import { useEffect, useState } from "~/src/core/hooks";
-import KaleidoDOM from "~/src/core/dom";
 import { KaleidoStyleSheet } from "~/src/core/style";
 import { getUniqueKey } from "~/src/helper";
 
@@ -12,7 +12,7 @@ export interface Todo {
 	completed: boolean;
 }
 
-const TodoApp = () => {
+const TodoApp: FC<{}> = () => {
 	const [todos, setTodos] = useState<Todo[]>([]);
 	const [title, setTitle] = useState("");
 	const [todoId, setTodoId] = useState("");
@@ -37,9 +37,9 @@ const TodoApp = () => {
 		const newTodos = todos.map((todo) =>
 			todo.id === id
 				? {
-						...todo,
-						completed: !todo.completed,
-				  }
+					...todo,
+					completed: !todo.completed,
+				}
 				: todo
 		);
 		localStorage.setItem("todos", JSON.stringify(newTodos));

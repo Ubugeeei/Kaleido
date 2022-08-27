@@ -1,15 +1,17 @@
-import KaleidoDOM from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 import { KaleidoStyleSheet } from "~/src/core/style";
 
 import { utilStyles } from "~/playground/style/util";
 import { Todo } from "~/playground/pages/todo";
 
-const TodoItem = (props: {
+interface Props {
 	todo: Todo;
 	onCheck: (id: string) => void;
 	onClickDelete: (id: string) => void;
-}) => {
-	const { todo, onCheck, onClickDelete } = props;
+}
+
+const TodoItem: FC<Props> = (props) => {
+	const { todo, onCheck, onClickDelete } = props!;
 
 	return KaleidoDOM.createElement(
 		"li",

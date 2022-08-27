@@ -1,10 +1,9 @@
-import { VirtualNodeType } from "~/src/core/dom/interface";
-import KaleidoDOM from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 import { rootComponentInstance } from "~/src/core/root";
 
 interface RouteOption {
 	path: string;
-	component: () => VirtualNodeType;
+	component: FC<{}>;
 }
 
 type RouterOption = string | { path: string };

@@ -1,8 +1,6 @@
-import {
-  ElementAttachedNeedAttr,
-  VirtualNodeType,
-} from "~/src/core/dom/interface";
+import { ElementAttachedNeedAttr } from "~/src/core/dom/interface";
 import { render } from "~/src/core/dom/render";
+import { FC } from "../dom";
 
 export interface State {
   value: unknown;
@@ -32,7 +30,7 @@ interface DepsEffect extends Effect {
 }
 
 class InternalRouteState {
-  vNodeRender!: () => VirtualNodeType;
+  vNodeRender!: FC<{}>;
   realNode?: ElementAttachedNeedAttr | null;
 
   /** for useState */
@@ -59,7 +57,7 @@ class InternalRouteState {
   currentSetMutableRefIndex = 0;
 
   mount(
-    vNodeRender: () => VirtualNodeType,
+    vNodeRender: FC<{}>,
     realNode?: ElementAttachedNeedAttr | null
   ) {
     if (!realNode) throw new Error("Error! realNode is null");
@@ -108,6 +106,26 @@ class InternalRouteState {
     this.effectsOnMounted.forEach((it) => {
       it.exec();
     });
+  }
+
+  cleanUp() {
+    this.states = [];
+    this.currentSetStateIndex = 0;
+
+    this.memorizedStates = [];
+    this.currentSetCallbackIndex = 0;
+
+    this.callbacks = [];
+    this.currentSetMemorizedStateIndex = 0;
+
+    this.effectsOnRendered = [];
+    this.effectsOnRenderedWithDeps = [];
+    this.effectsOnMounted = [];
+    this.effectsOnUnMounted = [];
+    this.currentSetEffectIndex = 0;
+
+    this.mutableRefs = [];
+    this.currentSetMutableRefIndex = 0;
   }
 }
 

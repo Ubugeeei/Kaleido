@@ -1,4 +1,4 @@
-import KaleidoDOM from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 import KaleidoRouter, { useRouter } from "~/src/core/router";
 import { KaleidoStyleSheet } from "~/src/core/style";
 
@@ -9,7 +9,7 @@ import RefSample from "./pages/ref";
 
 import { THEME, utilStyles } from "./style/util";
 
-const App = () => {
+const App: FC<{}> = () => {
 	const router = useRouter();
 
 	return KaleidoDOM.createElement(
