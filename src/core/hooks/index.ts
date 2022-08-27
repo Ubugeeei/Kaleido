@@ -91,3 +91,25 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 	// use memo
 	return memo.value;
 };
+
+export const useCallback = (cb: Function, deps: unknown[]) => {
+	const i = rootComponentInstance.currentSetCallbackIndex;
+	const callback = rootComponentInstance.callbacks[i];
+
+	if (!callback) {
+		// initial
+		rootComponentInstance.callbacks[i] = {
+			value: cb,
+			deps,
+		};
+	} else {
+		// updated
+		if (callback.deps !== deps) {
+			callback.deps = deps;
+			callback.value = cb;
+		}
+	}
+
+	rootComponentInstance.currentSetCallbackIndex++;
+	return callback.value;
+}
