@@ -51,7 +51,7 @@ const Counter = () => {
 				KaleidoDOM.createElement(
 					"button",
 					{
-						onclick: () => setCount2(count2 + 1),
+						onclick: () => setCount2(prev => prev + 1),
 						style:
 							utilStyles.mr4 +
 							styles.incrementButton +
