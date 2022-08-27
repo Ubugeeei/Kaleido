@@ -78,7 +78,6 @@ useEffect(() => {
 
 useEffect(() => {
   console.log("render")
-  logDouble()
 })
 
 useEffect(() => {
