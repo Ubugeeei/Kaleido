@@ -66,7 +66,13 @@ export const patchProperty = (
 	oldPropValue: any,
 	newPropValue: any
 ) => {
-	if (propName === "key") return;
+	if (propName === "key") return
+
+	if (propName === 'ref') {
+		newPropValue['current'] = realNode;
+		console.log("🚀 ~ file: patch.ts ~ line 73 ~ newPropValue['current']", newPropValue['current'])
+		return
+	}
 
 	if (propName === "value" && Reflect.has(realNode, "value")) {
 		(realNode as HTMLInputElement).value = newPropValue;
