@@ -146,8 +146,8 @@ const styles = KaleidoStyleSheet.create({
 edit on playground App.ts or components!
 
 ```sh
-$ yarn
-$ yarn start
+$ pnpm i
+$ pnpm start
 ```
 
 https://user-images.githubusercontent.com/71201308/162628530-2d5c28bc-41cc-466a-b171-7c985192f214.mov

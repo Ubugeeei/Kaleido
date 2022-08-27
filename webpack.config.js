@@ -28,10 +28,8 @@ module.exports = {
 	},
 
 	devServer: {
-		contentBase: `${outputPath}/`,
-		open: true,
 		hot: true,
-		watchContentBase: true,
+		open: true,
 		historyApiFallback: true,
 	},
 
