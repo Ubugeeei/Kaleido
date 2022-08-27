@@ -46,7 +46,10 @@ import { useState } from "~/src/hooks";
 const App = () => {
   const [count, setCount] = useState(0)
   const increment = () => {
-      setCount(count + 1)
+      setCount(prev => prev + 1)
+  }
+  const reset = () => {
+    setCount(0)
   }
 
   return KaleidoDOM.createElement(
@@ -62,6 +65,11 @@ const App = () => {
         "button"
 	      { type: "button", onClick: increment },
 	      ["count up!"]
+      ),
+      KaleidoDOM.createElement(
+        "button"
+	      { type: "button", onClick: reset },
+	      ["reset!"]
       ),
     ]
    )
