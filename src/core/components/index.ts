@@ -9,39 +9,40 @@ interface Effect {
 }
 
 interface DepsEffect extends Effect {
-	deps: any[];
+	deps: unknown[];
 	isNeedEffect?: boolean;
 }
 
+export interface State {
+	value: unknown;
+	initialized: boolean;
+}
 export interface MemorizedStates {
-	value: any;
-	deps: any[];
+	value: unknown;
+	deps: unknown[];
+}
+
+export interface MemorizedCallbackFunction {
+	value: Function;
+	deps: unknown[];
 }
 
 export class Component {
 	vNodeRender!: () => VirtualNodeType;
 	realNode?: ElementAttachedNeedAttr | null;
-	states: any[];
-	memorizedStates: MemorizedStates[];
-	renderingEffects: Effect[];
-	depsRenderingEffects: DepsEffect[];
-	mountingEffects: Effect[];
-	unMountingEffects: Function[];
-	currentSetStateIndex: number;
-	currentSetEffectIndex: number;
-	currentSetMemoIndex: number;
+	states: State[] = [];
+	memorizedStates: MemorizedStates[] = [];
+	callbacks: MemorizedCallbackFunction[] = [];
+	renderingEffects: Effect[] = [];
+	depsRenderingEffects: DepsEffect[] = [];
+	mountingEffects: Effect[] = [];
+	unMountingEffects: Function[] = [];
+	currentSetStateIndex: number = 0;
+	currentSetEffectIndex: number = 0;
+	currentSetMemoIndex: number = 0;
+	currentSetCallbackIndex: number = 0;
 
-	constructor() {
-		this.states = [];
-		this.memorizedStates = [];
-		this.renderingEffects = [];
-		this.depsRenderingEffects = [];
-		this.mountingEffects = [];
-		this.unMountingEffects = [];
-		this.currentSetStateIndex = 0;
-		this.currentSetEffectIndex = 0;
-		this.currentSetMemoIndex = 0;
-	}
+	constructor() { }
 
 	mount(
 		vNodeRender: () => VirtualNodeType,
@@ -106,6 +107,7 @@ export class Component {
 		this.currentSetStateIndex = 0;
 		this.currentSetEffectIndex = 0;
 		this.currentSetMemoIndex = 0;
+		this.currentSetCallbackIndex = 0;
 	}
 }
 

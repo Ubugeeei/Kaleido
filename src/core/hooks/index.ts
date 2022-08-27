@@ -1,5 +1,6 @@
 import { MemorizedStates } from "~/src/core/components";
 import { rootComponentInstance } from "~/src/core/root";
+import { shallowEqualArray } from "~/src/helper";
 
 export const useState = <T>(
 	initialValue: T
@@ -27,7 +28,7 @@ export const useState = <T>(
 	return [rootComponentInstance.states[i].value as T, setState];
 };
 
-export const useEffect = (exec: Function, deps?: any[]) => {
+export const useEffect = (exec: Function, deps?: unknown[]) => {
 	if (!deps) {
 		rootComponentInstance.renderingEffects.push({
 			exec,
@@ -48,8 +49,8 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 				isNeedEffect: true,
 			};
 		} else {
-			// あれば依存値の新旧を比較し、差異があればisNeedEffectをtrueにしdepsを更新
-			if (currentEffect.deps !== deps) {
+			// update
+			if (!shallowEqualArray(currentEffect.deps, deps)) {
 				currentEffect.deps = deps;
 				currentEffect.isNeedEffect = true;
 			}
@@ -62,7 +63,7 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 	rootComponentInstance.currentSetEffectIndex++;
 };
 
-export const useMemo = <T>(getter: () => T, deps: any[]): T => {
+export const useMemo = <T>(getter: () => T, deps: unknown[]): T => {
 	const i = rootComponentInstance.currentSetMemoIndex;
 
 	const memo: MemorizedStates | undefined =
@@ -79,7 +80,7 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 	}
 
 	// updated
-	if (deps !== memo.deps) {
+	if (!shallowEqualArray(deps, memo.deps)) {
 		memo.deps = deps;
 		const newValue = getter();
 		memo.value = newValue;
@@ -89,5 +90,27 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 	rootComponentInstance.currentSetMemoIndex++;
 
 	// use memo
-	return memo.value;
+	return memo.value as T;
 };
+
+export const useCallback = (cb: Function, deps: unknown[]) => {
+	const i = rootComponentInstance.currentSetCallbackIndex;
+	const callback = rootComponentInstance.callbacks[i];
+
+	if (!callback) {
+		// initial
+		rootComponentInstance.callbacks[i] = {
+			value: cb,
+			deps,
+		};
+	} else {
+		// updated
+		if (!shallowEqualArray(deps, callback.deps)) {
+			callback.deps = deps;
+			callback.value = cb;
+		}
+	}
+
+	rootComponentInstance.currentSetCallbackIndex++;
+	return callback.value;
+}
