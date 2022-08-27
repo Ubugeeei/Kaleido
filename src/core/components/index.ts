@@ -9,24 +9,28 @@ interface Effect {
 }
 
 interface DepsEffect extends Effect {
-	deps: any[];
+	deps: unknown[];
 	isNeedEffect?: boolean;
 }
 
+export interface State {
+	value: unknown;
+	initialized: boolean;
+}
 export interface MemorizedStates {
-	value: any;
-	deps: any[];
+	value: unknown;
+	deps: unknown[];
 }
 
 export interface MemorizedCallbackFunction {
 	value: Function;
-	deps: any[];
+	deps: unknown[];
 }
 
 export class Component {
 	vNodeRender!: () => VirtualNodeType;
 	realNode?: ElementAttachedNeedAttr | null;
-	states: any[] = [];
+	states: State[] = [];
 	memorizedStates: MemorizedStates[] = [];
 	callbacks: MemorizedCallbackFunction[] = [];
 	renderingEffects: Effect[] = [];

@@ -28,7 +28,7 @@ export const useState = <T>(
 	return [rootComponentInstance.states[i].value as T, setState];
 };
 
-export const useEffect = (exec: Function, deps?: any[]) => {
+export const useEffect = (exec: Function, deps?: unknown[]) => {
 	if (!deps) {
 		rootComponentInstance.renderingEffects.push({
 			exec,
@@ -63,7 +63,7 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 	rootComponentInstance.currentSetEffectIndex++;
 };
 
-export const useMemo = <T>(getter: () => T, deps: any[]): T => {
+export const useMemo = <T>(getter: () => T, deps: unknown[]): T => {
 	const i = rootComponentInstance.currentSetMemoIndex;
 
 	const memo: MemorizedStates | undefined =
@@ -90,7 +90,7 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 	rootComponentInstance.currentSetMemoIndex++;
 
 	// use memo
-	return memo.value;
+	return memo.value as T;
 };
 
 export const useCallback = (cb: Function, deps: unknown[]) => {
