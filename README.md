@@ -121,6 +121,7 @@ const inputEl = useRef<HTMLInputElement | null>(null);
 
 ```ts
 // context
+// ※ Not fully working.
 interface CounterContextProps {
 	count: number;
 	setCount: Dispatch<number>;
