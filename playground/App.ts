@@ -5,6 +5,8 @@ import { KaleidoStyleSheet } from "~/src/core/style";
 import Home from "./pages";
 import Counter from "./pages/counter";
 import Todo from "./pages/todo";
+import RefSample from "./pages/ref";
+
 import { THEME, utilStyles } from "./style/util";
 
 const App = () => {
@@ -42,6 +44,14 @@ const App = () => {
 						},
 						["todo"]
 					),
+					KaleidoDOM.createElement(
+						"div",
+						{
+							onClick: () => router.push("/ref-sample"),
+							style: utilStyles.mr3,
+						},
+						["ref sample"]
+					),
 				]
 			),
 
@@ -49,6 +59,7 @@ const App = () => {
 				KaleidoRouter.Route({ path: "/", component: Home }),
 				KaleidoRouter.Route({ path: "/counter", component: Counter }),
 				KaleidoRouter.Route({ path: "/todo", component: Todo }),
+				KaleidoRouter.Route({ path: "/ref-sample", component: RefSample }),
 			]),
 		]
 	);
