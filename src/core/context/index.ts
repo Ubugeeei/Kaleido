@@ -1,4 +1,5 @@
 import { KaleidoElement } from "../dom/interface"
+import { rootComponentInstance } from "../root"
 
 export type Context<T> = { Provider: Provider<T>, Consumer: Consumer<T> }
 type Provider<T> = ProviderExoticComponent<ProviderProps<T>>
@@ -9,13 +10,23 @@ type ProviderProps<T> = {
 type Consumer<T> = (cb: (st: T) => KaleidoElement | void) => KaleidoElement | void
 
 export const createContext = <T>(defaultValue: T): Context<T> => {
-  let state = defaultValue
+  const i = rootComponentInstance.currentSetContextStateIndex;
+  if (rootComponentInstance.contextStates[i] === undefined) {
+    rootComponentInstance.contextStates[i] = defaultValue;
+  }
+
   const context: Context<T> = {
     Provider: (props: ProviderProps<T>, kaleidoElement: KaleidoElement): KaleidoElement => {
-      state = props.value
+      if (rootComponentInstance.contextStates[i] !== props.value) {
+        rootComponentInstance.contextStates[i] = props.value
+        // rootComponentInstance.render()
+      }
       return kaleidoElement
     },
-    Consumer: (cb: (st: T) => KaleidoElement | void) => cb(state)
+    Consumer: (cb: (st: T) => KaleidoElement | void) => cb(rootComponentInstance.contextStates[i] as T)
   }
+
+  rootComponentInstance.currentSetContextStateIndex++;
+
   return context
 }
