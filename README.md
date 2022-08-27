@@ -80,7 +80,7 @@ KaleidoDOM.render(App, document.getElementById("root-element"));
 
 ### Other Hooks
 
-can use: useEffect, useMemo, useCallback, useRef, useRouter
+can use: useEffect, useMemo, useCallback, useRef, useContext, useRouter
 
 ```ts
 // state
@@ -111,6 +111,27 @@ useEffect(() => {
 const inputEl = useRef<HTMLInputElement | null>(null);
 // use with
 // KaleidoDOM.createElement('input', { ref: inputEl }, [])
+
+// context
+interface CounterContextProps {
+	count: number;
+	setCount: Dispatch<number>;
+}
+export const CounterContext = createContext<CounterContextProps>({
+	count: 0,
+	setCount: () => {},
+});
+const Parent = () => {
+	const [count, setCount] = useState(0);
+	return CounterContext.Provider(
+		{ value: { count, setCount } },
+		Child()
+	);
+};
+const Child = () => {
+	const { count, setCount } = useContext(CounterContext);
+	// ...
+};
 
 // router
 const router = useRouter();
