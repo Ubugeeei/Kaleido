@@ -1,4 +1,3 @@
-import * as deepEqual from "fast-deep-equal";
 import { MemorizedStates } from "~/src/core/components";
 import { rootComponentInstance } from "~/src/core/root";
 
@@ -36,7 +35,7 @@ export const useEffect = (exec: Function, deps?: any[]) => {
 	} else if (deps.length) {
 		const currentEffect =
 			rootComponentInstance.depsRenderingEffects[
-				rootComponentInstance.currentSetEffectIndex
+			rootComponentInstance.currentSetEffectIndex
 			];
 
 		if (!currentEffect) {
@@ -80,7 +79,7 @@ export const useMemo = <T>(getter: () => T, deps: any[]): T => {
 	}
 
 	// updated
-	if (!deepEqual(deps, memo.deps)) {
+	if (deps === memo.deps) {
 		memo.deps = deps;
 		const newValue = getter();
 		memo.value = newValue;
