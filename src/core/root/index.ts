@@ -41,22 +41,22 @@ class InternalRouteState {
 
   /** for useMemo */
   memorizedStates: MemorizedStates[] = [];
-  currentSetMemoIndex = 0;
+  currentSetMemorizedStateIndex = 0;
 
   /** for useCallback */
   callbacks: MemorizedCallbackFunction[] = [];
   currentSetCallbackIndex = 0;
 
   /** for useEffect */
-  renderingEffects: Effect[] = [];
-  depsRenderingEffects: DepsEffect[] = [];
-  mountingEffects: Effect[] = [];
-  unMountingEffects: Function[] = [];
+  effectsOnRendered: Effect[] = [];
+  effectsOnRenderedWithDeps: DepsEffect[] = [];
+  effectsOnMounted: Effect[] = [];
+  effectsOnUnMounted: Function[] = [];
   currentSetEffectIndex = 0;
 
   /** for useRef */
   mutableRefs: MutableRefObject<unknown>[] = [];
-  currentSetRefIndex = 0;
+  currentSetMutableRefIndex = 0;
 
   mount(
     vNodeRender: () => VirtualNodeType,
@@ -76,7 +76,7 @@ class InternalRouteState {
   unMount() {
     this.realNode = null;
 
-    this.unMountingEffects.forEach((it) => {
+    this.effectsOnUnMounted.forEach((it) => {
       it();
     });
   }
@@ -86,49 +86,28 @@ class InternalRouteState {
     if (!_this.realNode) return;
     this.currentSetStateIndex = 0;
     this.currentSetEffectIndex = 0;
-    this.currentSetMemoIndex = 0;
+    this.currentSetMemorizedStateIndex = 0;
 
-    _this.renderingEffects = [];
+    _this.effectsOnRendered = [];
     render(_this.vNodeRender(), _this.realNode);
 
-    _this.depsRenderingEffects.forEach((it) => {
+    _this.effectsOnRenderedWithDeps.forEach((it) => {
       if (!it.isNeedEffect) return;
       it.exec();
       it.isNeedEffect = false;
     });
 
-    // レンダリングするときにuseEffectで登録された関数を実行
-    _this.unMountingEffects = [];
-    _this.renderingEffects.forEach((it) => {
+    _this.effectsOnUnMounted = [];
+    _this.effectsOnRendered.forEach((it) => {
       const unMountFunc = it.exec();
-      unMountFunc && _this.unMountingEffects.push(unMountFunc);
+      unMountFunc && _this.effectsOnUnMounted.push(unMountFunc);
     });
   }
 
   effectInitialRender() {
-    this.mountingEffects.forEach((it) => {
+    this.effectsOnMounted.forEach((it) => {
       it.exec();
     });
-  }
-
-  cleanUp() {
-    this.states = [];
-    this.currentSetStateIndex = 0;
-
-    this.memorizedStates = [];
-    this.currentSetMemoIndex = 0;
-
-    this.callbacks = [];
-    this.currentSetCallbackIndex = 0;
-
-    this.renderingEffects = [];
-    this.depsRenderingEffects = [];
-    this.mountingEffects = [];
-    this.unMountingEffects = [];
-    this.currentSetEffectIndex = 0;
-
-    this.mutableRefs = [];
-    this.currentSetRefIndex = 0;
   }
 }
 

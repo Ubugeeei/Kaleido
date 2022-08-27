@@ -37,18 +37,18 @@ export const useState = <T>(
 
 export const useEffect = (exec: Function, deps?: unknown[]) => {
 	if (!deps) {
-		rootComponentInstance.renderingEffects.push({
+		rootComponentInstance.effectsOnRendered.push({
 			exec,
 		});
 	} else if (deps.length) {
 		const currentEffect =
-			rootComponentInstance.depsRenderingEffects[
+			rootComponentInstance.effectsOnRenderedWithDeps[
 			rootComponentInstance.currentSetEffectIndex
 			];
 
 		if (!currentEffect) {
 			// なければ登録 (初回登録)
-			rootComponentInstance.depsRenderingEffects[
+			rootComponentInstance.effectsOnRenderedWithDeps[
 				rootComponentInstance.currentSetEffectIndex
 			] = {
 				exec,
@@ -63,7 +63,7 @@ export const useEffect = (exec: Function, deps?: unknown[]) => {
 			}
 		}
 	} else {
-		rootComponentInstance.mountingEffects.push({
+		rootComponentInstance.effectsOnMounted.push({
 			exec,
 		});
 	}
@@ -71,7 +71,7 @@ export const useEffect = (exec: Function, deps?: unknown[]) => {
 };
 
 export const useMemo = <T>(getter: () => T, deps: unknown[]): T => {
-	const i = rootComponentInstance.currentSetMemoIndex;
+	const i = rootComponentInstance.currentSetMemorizedStateIndex;
 
 	const memo: MemorizedStates | undefined =
 		rootComponentInstance.memorizedStates[i];
@@ -94,7 +94,7 @@ export const useMemo = <T>(getter: () => T, deps: unknown[]): T => {
 		return newValue;
 	}
 
-	rootComponentInstance.currentSetMemoIndex++;
+	rootComponentInstance.currentSetMemorizedStateIndex++;
 
 	// use memo
 	return memo.value as T;
@@ -123,7 +123,7 @@ export const useCallback = (cb: Function, deps: unknown[]) => {
 }
 
 export const useRef = <T>(initialValue: T): MutableRefObject<T> => {
-	const i = rootComponentInstance.currentSetRefIndex;
+	const i = rootComponentInstance.currentSetMutableRefIndex;
 
 	if (rootComponentInstance.mutableRefs[i] === undefined) {
 		rootComponentInstance.mutableRefs[i] = {
@@ -131,7 +131,7 @@ export const useRef = <T>(initialValue: T): MutableRefObject<T> => {
 		};
 	}
 
-	rootComponentInstance.currentSetRefIndex++;
+	rootComponentInstance.currentSetMutableRefIndex++;
 
 	return rootComponentInstance.mutableRefs[i] as MutableRefObject<T>;
 }
