@@ -1,7 +1,7 @@
-import KaleidoDOM from "~/src/core/dom";
+import KaleidoDOM, { FC } from "~/src/core/dom";
 import { useRef } from "~/src/core/hooks";
 
-const RefSample = () => {
+const RefSample: FC<{}> = () => {
   const inputEl = useRef<HTMLInputElement | null>(null);
   const focusInput = () => {
     if (inputEl.current) {

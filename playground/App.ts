@@ -1,6 +1,7 @@
 import KaleidoDOM from "~/src/core/dom";
 import KaleidoRouter, { useRouter } from "~/src/core/router";
 import { KaleidoStyleSheet } from "~/src/core/style";
+import { FC } from "~/src/core/dom";
 
 import Home from "./pages";
 import Counter from "./pages/counter";
@@ -9,7 +10,7 @@ import RefSample from "./pages/ref";
 
 import { THEME, utilStyles } from "./style/util";
 
-const App = () => {
+const App: FC<{}> = () => {
 	const router = useRouter();
 
 	return KaleidoDOM.createElement(

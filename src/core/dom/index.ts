@@ -5,8 +5,10 @@ import {
 	ElementAttachedNeedAttr,
 } from "./interface";
 
+export type FC<P> = (props?: P & { children?: VirtualNodeType[] }, context?: any) => VirtualNodeType;
+
 export const render = (
-	vNodeRender: () => VirtualNodeType,
+	vNodeRender: FC<{}>,
 	realNode?: ElementAttachedNeedAttr | null
 ) => {
 	rootComponentInstance.mount(vNodeRender, realNode);
