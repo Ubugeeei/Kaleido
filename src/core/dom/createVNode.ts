@@ -3,15 +3,15 @@ import {
 	createTextVNode,
 	createVNode,
 } from "./createElement";
-import { VirtualNodeType } from "./interface"
+import { KaleidoElement } from "./interface"
 
 export const createVNodeFromRealElement = (
 	realElement: HTMLElement
-): VirtualNodeType => {
+): KaleidoElement => {
 	// prettier-ignore
 	if (realElement.nodeType === TEXT_NODE) return createTextVNode(realElement.nodeName, realElement);
 
-	const VNodeChildren: VirtualNodeType[] = [];
+	const VNodeChildren: KaleidoElement[] = [];
 	for (const i in realElement.childNodes) {
 		const child = realElement.children.item(Number(i));
 		if (child === null) continue;
@@ -21,7 +21,7 @@ export const createVNodeFromRealElement = (
 		VNodeChildren.push(childVNode);
 	}
 
-	const props: VirtualNodeType["props"] = {};
+	const props: KaleidoElement["props"] = {};
 	if (realElement.hasAttributes()) {
 		for (const i in realElement.attributes) {
 			const { name, value } = realElement.attributes[i];

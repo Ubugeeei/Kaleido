@@ -2,14 +2,14 @@ import {
 	ElementAttachedNeedAttr,
 	DOMAttributeName,
 	DOMAttributes,
-	VirtualNodeType,
+	KaleidoElement,
 	ExpandElement,
 } from "./interface";
 
 export const updateOnlyThisNode = (
-	realNode: VirtualNodeType["realNode"],
-	oldVNode: VirtualNodeType,
-	newVNode: VirtualNodeType
+	realNode: KaleidoElement["realNode"],
+	oldVNode: KaleidoElement,
+	newVNode: KaleidoElement
 ): ExpandElement | null => {
 	if (!realNode) {
 		console.error("Error! realNode is null.");

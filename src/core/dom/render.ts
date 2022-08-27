@@ -6,11 +6,11 @@ import {
 	ElementAttachedNeedAttr,
 	ExpandElement,
 	KeyAttribute,
-	VirtualNodeType,
+	KaleidoElement,
 } from "./interface";
 
 export const render = (
-	newVNode: VirtualNodeType,
+	newVNode: KaleidoElement,
 	realNode: ElementAttachedNeedAttr
 ) => {
 	if (!realNode.parentElement)
@@ -27,9 +27,9 @@ export const render = (
 
 const renderNode = (
 	parentNode: HTMLElement,
-	realNode: VirtualNodeType["realNode"],
-	oldVNode: VirtualNodeType | null,
-	newVNode: VirtualNodeType
+	realNode: KaleidoElement["realNode"],
+	oldVNode: KaleidoElement | null,
+	newVNode: KaleidoElement
 ) => {
 	// do none
 	// if (deepEqual(newVNode, oldVNode)) return;
@@ -70,7 +70,7 @@ const renderNode = (
 
 		const hasKeyOldChildren: Map<
 			KeyAttribute,
-			VirtualNodeType
+			KaleidoElement
 		> = new Map();
 
 		for (const child of oldVNode.children) {
@@ -85,7 +85,7 @@ const renderNode = (
 		> = new Map();
 
 		while (newChildCurrentIndex < newChildrenLength) {
-			let oldChildVNode: VirtualNodeType | null;
+			let oldChildVNode: KaleidoElement | null;
 			let oldKey: string | number | null;
 			if (!oldVNode.children[oldChildCurrentIndex]) {
 				oldChildVNode = null;
@@ -206,8 +206,8 @@ const renderNode = (
 };
 
 const renderTextNode = (
-	realNode: VirtualNodeType["realNode"],
-	newVNode: VirtualNodeType
+	realNode: KaleidoElement["realNode"],
+	newVNode: KaleidoElement
 ): ExpandElement | null => {
 	if (!realNode) {
 		console.error(

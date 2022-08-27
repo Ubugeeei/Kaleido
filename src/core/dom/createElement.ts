@@ -1,4 +1,4 @@
-import { KeyAttribute, VirtualNodeType } from "./interface";
+import { KeyAttribute, KaleidoElement } from "./interface";
 
 export const TEXT_NODE = 3;
 
@@ -6,12 +6,12 @@ export const TEXT_NODE = 3;
  * create element function h
  */
 export const createElement = (
-	name: VirtualNodeType["name"],
-	props: VirtualNodeType["props"],
-	children: (VirtualNodeType | string)[],
-	realNode?: VirtualNodeType["realNode"]
-): VirtualNodeType => {
-	const VNodeChildren: VirtualNodeType[] = [];
+	name: KaleidoElement["name"],
+	props: KaleidoElement["props"],
+	children: (KaleidoElement | string)[],
+	realNode?: KaleidoElement["realNode"]
+): KaleidoElement => {
+	const VNodeChildren: KaleidoElement[] = [];
 	children.forEach((it) => {
 		if (typeof it === "string") {
 			const textVNode = createTextVNode(it);
@@ -34,13 +34,13 @@ export const createElement = (
 };
 
 export const createVNode = (
-	name: VirtualNodeType["name"],
-	props: VirtualNodeType["props"],
-	children: VirtualNodeType["children"],
-	realNode?: VirtualNodeType["realNode"],
-	nodeType?: VirtualNodeType["nodeType"],
+	name: KaleidoElement["name"],
+	props: KaleidoElement["props"],
+	children: KaleidoElement["children"],
+	realNode?: KaleidoElement["realNode"],
+	nodeType?: KaleidoElement["nodeType"],
 	key?: KeyAttribute
-): VirtualNodeType => ({
+): KaleidoElement => ({
 	name,
 	props,
 	children,
@@ -51,5 +51,5 @@ export const createVNode = (
 
 export const createTextVNode = (
 	name: string,
-	realNode?: VirtualNodeType["realNode"]
+	realNode?: KaleidoElement["realNode"]
 ) => createVNode(name, {}, [], realNode, TEXT_NODE);

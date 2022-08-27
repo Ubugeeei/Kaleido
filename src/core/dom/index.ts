@@ -1,11 +1,11 @@
 import { rootComponentInstance } from "~/src/core/root";
 import { createElement } from "./createElement";
 import {
-	VirtualNodeType,
+	KaleidoElement,
 	ElementAttachedNeedAttr,
 } from "./interface";
 
-export type FC<P> = (props?: P & { children?: VirtualNodeType[] }, context?: any) => VirtualNodeType;
+export type FC<P> = (props?: P & { children?: KaleidoElement[] }, context?: any) => KaleidoElement;
 
 export const render = (
 	vNodeRender: FC<{}>,

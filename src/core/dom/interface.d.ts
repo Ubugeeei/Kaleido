@@ -14,22 +14,22 @@ export interface HandlersType {
 }
 
 export type ElementAttachedNeedAttr = HTMLElement & {
-	vdom?: VirtualNodeType;
+	vdom?: KaleidoElement;
 	eventHandlers?: HandlersType;
 };
 
 export type TextAttachedVDom = Text & {
-	vdom?: VirtualNodeType;
+	vdom?: KaleidoElement;
 };
 
 export type ExpandElement =
 	| ElementAttachedNeedAttr
 	| TextAttachedVDom;
 
-export interface VirtualNodeType {
+export interface KaleidoElement {
 	name: HTMLElementTagNameMap | string;
 	props: DOMAttributes;
-	children: VirtualNodeType[];
+	children: KaleidoElement[];
 	realNode: ExpandElement | null;
 	nodeType: TEXT_NODE | null;
 	key: KeyAttribute | null;

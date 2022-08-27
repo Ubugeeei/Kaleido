@@ -1,5 +1,5 @@
 import {
-	VirtualNodeType,
+	KaleidoElement,
 	ElementAttachedNeedAttr,
 	TextAttachedVDom,
 } from "./interface";
@@ -7,7 +7,7 @@ import { TEXT_NODE } from "./createElement";
 import { patchProperty } from "./patch";
 
 export const createRealNodeFromVNode = (
-	VNode: VirtualNodeType
+	VNode: KaleidoElement
 ): ElementAttachedNeedAttr | TextAttachedVDom | null => {
 	if (typeof VNode.name !== "string") return null;
 
