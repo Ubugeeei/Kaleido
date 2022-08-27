@@ -2,7 +2,7 @@ export type TEXT_NODE = 3;
 
 export type KeyAttribute = string | number;
 
-export type DOMAttributeName = "key" | string;
+export type DOMAttributeName = "key" | "ref" | (string & {});
 
 export interface DOMAttributes {
 	key?: KeyAttribute;
