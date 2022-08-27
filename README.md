@@ -77,6 +77,8 @@ can use: useEffect, useMemo, useCallback, useRef, useRouter
 ```ts
 // state
 const [count, setCount] = useState(0);
+setCount(3);
+setCount((prev) => prev + 1);
 
 // memorization
 const double = useMemo(() => count * 2, [count]);
