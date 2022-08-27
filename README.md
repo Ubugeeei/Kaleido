@@ -64,10 +64,13 @@ KaleidoDOM.render(App, document.getElementById("root-element"));
 ```
 
 ### Other Hooks
-can use: useEffect, useMemo, useRouter
+can use: useEffect, useMemo, useCallback, useRouter
 ```ts
 const [count, setCount] = useState(0)
 const double = useMemo(() => count * 2, [count])
+const logDouble = useCallback(() => {
+  console.log('double updated!', double)
+}, [double])
 
 useEffect(() => {
   console.log("initial render!")
@@ -75,6 +78,7 @@ useEffect(() => {
 
 useEffect(() => {
   console.log("render")
+  logDouble()
 })
 
 useEffect(() => {
